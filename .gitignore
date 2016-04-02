@@ -1,0 +1,8 @@
+/web2py/*
+!/web2py/applications
+/web2py/applications/admin
+/web2py/applications/examples
+/web2py/applications/welcome
+/tmp/Dockerfile
+/web2py/applications/__init__.py
+/web2py/applications/__init__.pyc
