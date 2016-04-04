@@ -35,7 +35,7 @@ Let's compile the docker server image,
 If build succeeds you can run the image locally using docker,
 
 ```
- $ docker run -it --rm --name myinstancename -p 80:80 -p 443:443 hrob/test:v1
+ $ docker run -it --rm --name myinstancename -p 80:80 -p 443:443 myname/myimage:v1
 ```
 You can then visit the running website with you web browser, simply enter localhost into your browser.
 To visit the admin interface enter https://localhost/admin into your browser. During development this
