@@ -56,7 +56,19 @@ The files in the root directory are mostly scripts and config files that help do
 for example the Apache2 web server. The files under ./web2py/applications/ are the actual website development files and can be
 developed and tested without compiling a docker image.
 
-So to work on developing the web2py website, you may simply run web2py in development mode on you local machine by executing
+While developing the actual Docker image, it is often useful to start the image with a shell interface,
+so that you can look around inside.  The environment is very much like an actual linux server, except 
+there are no running processes / services by default.  To start the image with a shell interface run,
+
+```
+ $ docker run -it --rm --name myinstancename myname/myimage:v1 /bin/bash
+```
+
+Note that the default service (apache2) will not be started this way. If you check the running processes using $ top you will see
+that the only visible processes are bash and top.
+
+To work on developing the web2py website there is no need to constantly test it on a docker image. You can simply run web2py 
+in development mode on you local machine by executing
 
 ```
  $ cd web2py
