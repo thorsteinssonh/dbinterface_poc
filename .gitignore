@@ -6,3 +6,11 @@
 /tmp/Dockerfile
 /web2py/applications/__init__.py
 /web2py/applications/__init__.pyc
+/web2py/applications/masterdb/__init__.pyc
+/web2py/applications/masterdb/controllers/default.py.bak
+/web2py/applications/masterdb/models/menu.py.bak
+/web2py/applications/masterdb/models/testdata.py.bak
+/web2py/applications/masterdb/modules/__init__.pyc
+/web2py/applications/masterdb/views/default/index.html.bak
+/web2py/applications/masterdb/views/default/manage.html.bak
+/web2py/applications/masterdb/views/default/show.html.bak
