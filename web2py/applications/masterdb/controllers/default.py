@@ -8,17 +8,30 @@
 ## - download is for downloading files uploaded in the db (does streaming)
 #########################################################################
 
+@auth.requires_login()
 def index():
-    """
-    example action using the internationalization operator T and flash
-    rendered by views/default/index.html or views/generic.html
+    db.testdata.created_on.default = request.now
+    db.testdata.created_on.writable=False
+    #db.testdata.created_on.readable=False
+    form = SQLFORM(db.testdata).process()
+    if form.accepted:
+        response.flash = "Success: Posted new data"
+    allData = db(db.testdata).select(orderby=db.testdata.hospital.upper())
+    return locals()
 
-    if you need a simple wiki simply replace the two lines below with:
-    return auth.wiki()
-    """
-    response.flash = T("Hello World")
-    return dict(message=T('Welcome to web2py!'))
+def show():
+    entry = db.testdata( request.args(0,cast=int) )
+    db.testdata_comments.testdata.default = entry.id
+    db.testdata_comments.testdata.readable = False
+    db.testdata_comments.testdata.writable = False
+    form = SQLFORM(db.testdata_comments).process()
+    comments = db(db.testdata_comments.testdata == entry.id).select()
+    return locals()
 
+@auth.requires_membership("managers")
+def manage():
+    grid = SQLFORM.grid(db.testdata)
+    return locals()
 
 def user():
     """
@@ -56,5 +69,3 @@ def call():
     supports xml, json, xmlrpc, jsonrpc, amfrpc, rss, csv
     """
     return service()
-
-

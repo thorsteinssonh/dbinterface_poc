@@ -1,0 +1,21 @@
+{{extend 'layout.html'}}
+
+<h2>
+    {{=entry.hospital}}
+</h2>
+<i>Medical device event on {{=entry.created_on}} by {{=entry.created_by.first_name+" "
+    +entry.created_by.last_name}}</i>
+<p>
+    {{=MARKMIN(entry.equipment)}}
+</p>
+
+{{for comment in comments:}}
+<div class="well">
+    {{=comment.created_by.first_name}} {{=comment.created_by.last_name}}
+    on {{=comment.created_on}} says
+    <i>{{=comment.comment_text}}</i>
+</div>
+{{pass}}
+
+
+{{=form}}

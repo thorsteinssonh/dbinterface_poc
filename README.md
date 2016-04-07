@@ -12,11 +12,12 @@ by executing the command
  $ ./get_latest_web2py.sh
 ```
 
-You re-run this command at a later time if newer versions of web2py become available. Updating web2py should not cause problems because
-the framework tries to be strongly backwards compatible.
+You can re-run this command at a later time if newer versions of web2py become available. Updating web2py should not 
+cause problems because the framework tries to be strongly backwards compatible.
+You can also use the web2py administrator interface to execute a framework update at `http://localhost/admin`.
 
 It is necessary to create an admin password to be able to log in securely using the admin web2py admin interface 
-under https://mysite/admin .  Create your admin password by executing the command
+under `https://mysite/admin`.  Create your admin password by executing the command
 
 ```
  $ ./create_admin_passw.sh
@@ -42,7 +43,7 @@ To visit the admin interface enter https://localhost/admin into your browser. Du
 image ships with a self signed ssl security certificate, so you will have to accept a security exception
 when visiting the admin interface locally.
 
-The docker instance can be exited either by hitting Ctrl-D in the terminal where it was started, or if the instance is backgrounded
+The docker instance can be exited either by hitting `Ctrl-C` in the terminal where it was started, or if the instance is backgrounded
 you should be able to stop or kill it using a Docker command, e.g.,
 
 ```
@@ -51,9 +52,9 @@ you should be able to stop or kill it using a Docker command, e.g.,
 
 DEVELOPMENT
 ---------------
-The files that should be developed include all files in the project root directory and files under ./web2py/applications/.
+The files that should be developed include all files in the project root directory and files under `./web2py/applications/.`
 The files in the root directory are mostly scripts and config files that help docker build a server image, and help configure
-for example the Apache2 web server. The files under ./web2py/applications/ are the actual website development files and can be
+for example the Apache2 web server. The files under `./web2py/applications/` are the actual website development files and can be
 developed and tested without compiling a docker image.
 
 While developing the actual Docker image, it is often useful to start the image with a shell interface,
@@ -64,7 +65,7 @@ there are no running processes / services by default.  To start the image with a
  $ docker run -it --rm --name myinstancename myname/myimage:v1 /bin/bash
 ```
 
-Note that the default service (apache2) will not be started this way. If you check the running processes using $ top you will see
+Note that the default service (apache2) will not be started this way. If you check the running processes using `$ top` you will see
 that the only visible processes are bash and top.
 
 To work on developing the web2py website there is no need to constantly test it on a docker image. You can simply run web2py 

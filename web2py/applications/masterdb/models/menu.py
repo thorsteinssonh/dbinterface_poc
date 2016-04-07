@@ -25,10 +25,14 @@ response.google_analytics_id = None
 #########################################################################
 
 response.menu = [
-    (T('Home'), False, URL('default', 'index'), [])
+    (T('Home'), False, URL('default', 'index'), []),
+    (T('DB Entries'), False, URL('default', 'index'), [])
 ]
 
-DEVELOPMENT_MENU = True
+if auth.has_membership('managers'):
+    response.menu.append( (T('Manage'), False, URL('default', 'manage'), []) )
+
+DEVELOPMENT_MENU = False
 
 #########################################################################
 ## provide shortcuts for development. remove in production
@@ -135,4 +139,4 @@ def _():
         ]
 if DEVELOPMENT_MENU: _()
 
-if "auth" in locals(): auth.wikimenu() 
+if "auth" in locals(): auth.wikimenu()
