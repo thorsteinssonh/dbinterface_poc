@@ -14,3 +14,5 @@
 /web2py/applications/masterdb/views/default/index.html.bak
 /web2py/applications/masterdb/views/default/manage.html.bak
 /web2py/applications/masterdb/views/default/show.html.bak
+/web2py/applications/masterdb/errors
+/web2py/applications/masterdb/sessions
