@@ -5,8 +5,11 @@
 ## Customize your APP title, subtitle and menus here
 #########################################################################
 
-response.logo = A(B('web',SPAN(2),'py'),XML('&trade;&nbsp;'),
-                  _class="navbar-brand",_href="http://www.web2py.com/",
+#response.logo = A(B('web',SPAN(2),'py'),XML('&trade;&nbsp;'),
+#                  _class="navbar-brand",_href="http://www.web2py.com/",
+#                  _id="web2py-logo")
+response.logo = A(B('Master',SPAN('DB')),XML('&trade;&nbsp;'), I('concept'),
+                  _class="navbar-brand",_href="http://localhost/",
                   _id="web2py-logo")
 response.title = request.application.replace('_',' ').title()
 response.subtitle = ''
@@ -24,13 +27,23 @@ response.google_analytics_id = None
 ## this is the main application menu add/remove items as required
 #########################################################################
 
-response.menu = [
-    (T('Home'), False, URL('default', 'index'), []),
-    (T('DB Entries'), False, URL('default', 'index'), [])
-]
+st_submen = [(T('Lookup'), False, URL('site', 'lookup'), []),
+          (T('Insert'), False, URL('site', 'insert'), []),
+          (T('Manage'), False, URL('site', 'manage'), [])]
 
-if auth.has_membership('managers'):
-    response.menu.append( (T('Manage'), False, URL('default', 'manage'), []) )
+dv_submen = [(T('Lookup'), False, URL('device', 'lookup'), []),
+          (T('Insert'), False, URL('device', 'insert'), []),
+          (T('Manage'), False, URL('device', 'manage'), [])]
+
+dh_submen = [(T('Lookup'), False, URL('device_history', 'lookup'), []),
+          (T('Insert'), False, URL('device_history', 'insert'), []),
+          (T('Manage'), False, URL('device_history', 'manage'), [])]
+
+response.menu = [
+    (T('Home'), False, URL('home', 'home'), []),
+    (T('Device History'), False, None, dh_submen ),
+    (T('Device'), False, None, dv_submen ),
+    (T('Site'), False, None, st_submen )]
 
 DEVELOPMENT_MENU = False
 

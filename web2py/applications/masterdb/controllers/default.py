@@ -8,30 +8,12 @@
 ## - download is for downloading files uploaded in the db (does streaming)
 #########################################################################
 
-@auth.requires_login()
 def index():
-    db.testdata.created_on.default = request.now
-    db.testdata.created_on.writable=False
-    #db.testdata.created_on.readable=False
-    form = SQLFORM(db.testdata).process()
-    if form.accepted:
-        response.flash = "Success: Posted new data"
-    allData = db(db.testdata).select(orderby=db.testdata.hospital.upper())
-    return locals()
+    """
+    Default / home page
+    """
+    return dict(message=T('The CHC Master Database'))
 
-def show():
-    entry = db.testdata( request.args(0,cast=int) )
-    db.testdata_comments.testdata.default = entry.id
-    db.testdata_comments.testdata.readable = False
-    db.testdata_comments.testdata.writable = False
-    form = SQLFORM(db.testdata_comments).process()
-    comments = db(db.testdata_comments.testdata == entry.id).select()
-    return locals()
-
-@auth.requires_membership("managers")
-def manage():
-    grid = SQLFORM.grid(db.testdata)
-    return locals()
 
 def user():
     """
@@ -69,3 +51,5 @@ def call():
     supports xml, json, xmlrpc, jsonrpc, amfrpc, rss, csv
     """
     return service()
+
+

@@ -1,0 +1,12 @@
+{{extend 'layout.html'}}
+<h1>Treatment center lookup</h1>
+
+<table class="table">
+    {{for entry in entries:}}
+    <tr>
+        <td>{{=entry.name}}</td>
+        <td>{{=entry.country}}</td>
+        <td>{{=entry.address}}</td>
+    </tr>
+    {{pass}}
+</table>

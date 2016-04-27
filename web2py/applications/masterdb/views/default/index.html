@@ -1,20 +1,38 @@
+{{left_sidebar_enabled,right_sidebar_enabled=False,('message' in globals())}}
 {{extend 'layout.html'}}
 
-<h2>
-    Test Data Form
-</h2>
-{{=form}}
+{{block header}}
+    <header class="container-fluid background">
+      <div class="jumbotron text-center">
+        {{if response.title:}}
+        <h1>{{=response.title}}
+          <small>{{=response.subtitle or ''}}</small></h1>
+        {{pass}}
+      </div>
+    </header>
+{{end}}
 
-<h2>
-    All Data
-</h2>
+{{if 'message' in globals():}}
+<h2>{{=message}}</h2>
+<p class="lead">
+Some introductory text here
+</p>
 
-<table class="table">
-    {{for entry in allData:}}
-    <tr>
-        <td><a href="{{=URL('show', args=entry.id)}}">{{=entry.hospital}}</a></td>
-        <td>{{=entry.equipment}}</td>
-        <td>{{=entry.created_on}}</td>
-    </tr>
-    {{pass}}
-</table>
+{{elif 'content' in globals():}}
+{{=content}}
+{{else:}}
+{{=BEAUTIFY(response._vars)}}
+{{pass}}
+
+{{block right_sidebar}}
+<div class="panel panel-info">
+  <div class="panel-heading"><h3 class="panel-title">
+      {{="Navigate"}}
+     </h3></div>
+  <ul class="list-group">
+    <li class="list-group-item">{{=A( 'Device History', _href=URL('masterdb','device_history','lookup'))}}</li>
+    <li class="list-group-item">{{=A( 'Device', _href=URL('masterdb','device','lookup'))}}</li>
+    <li class="list-group-item">{{=A( 'Site', _href=URL('masterdb','site','lookup'))}}</li>
+  </ul>
+</div>
+{{end}}

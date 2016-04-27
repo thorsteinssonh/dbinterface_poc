@@ -1,4 +1,4 @@
-timestamp: 2016-04-06T15:04:02.508586
+timestamp: 2016-04-12T21:39:03.705984
 CREATE TABLE auth_user(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     first_name CHAR(128),
@@ -10,21 +10,21 @@ CREATE TABLE auth_user(
     registration_id CHAR(512)
 );
 success!
-timestamp: 2016-04-06T15:04:02.656773
+timestamp: 2016-04-12T21:39:03.891967
 CREATE TABLE auth_group(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     role CHAR(512),
     description TEXT
 );
 success!
-timestamp: 2016-04-06T15:04:02.746400
+timestamp: 2016-04-12T21:39:04.093767
 CREATE TABLE auth_membership(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  ,
     group_id INTEGER REFERENCES auth_group (id) ON DELETE CASCADE  
 );
 success!
-timestamp: 2016-04-06T15:04:02.843491
+timestamp: 2016-04-12T21:39:04.261897
 CREATE TABLE auth_permission(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     group_id INTEGER REFERENCES auth_group (id) ON DELETE CASCADE  ,
@@ -33,7 +33,7 @@ CREATE TABLE auth_permission(
     record_id INTEGER
 );
 success!
-timestamp: 2016-04-06T15:04:02.940599
+timestamp: 2016-04-12T21:39:04.418437
 CREATE TABLE auth_event(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     time_stamp TIMESTAMP,
@@ -43,7 +43,7 @@ CREATE TABLE auth_event(
     description TEXT
 );
 success!
-timestamp: 2016-04-06T15:04:03.038328
+timestamp: 2016-04-12T21:39:04.576110
 CREATE TABLE auth_cas(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  ,
@@ -53,344 +53,74 @@ CREATE TABLE auth_cas(
     renew CHAR(1)
 );
 success!
-timestamp: 2016-04-06T15:08:28.977641
-CREATE TABLE testdata(
+timestamp: 2016-04-12T21:39:04.732870
+CREATE TABLE masterdb(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    hospital CHAR(512)
+    hospital CHAR(512),
+    device CHAR(512),
+    used_on TIMESTAMP,
+    patient_id INTEGER,
+    db_entry_on TIMESTAMP
 );
 success!
-timestamp: 2016-04-06T15:21:55.144013
-ALTER TABLE testdata ADD equipment CHAR(512);
-timestamp: 2016-04-06T15:21:55.245996
-ALTER TABLE testdata ADD time_stamp TIMESTAMP;
-success!
-timestamp: 2016-04-07T14:23:06.760783
-ALTER TABLE testdata ADD modified_by INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  ;
-timestamp: 2016-04-07T14:23:06.861788
-ALTER TABLE testdata ADD created_by INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  ;
-timestamp: 2016-04-07T14:23:06.956398
-ALTER TABLE testdata ADD created_on TIMESTAMP;
-timestamp: 2016-04-07T14:23:07.049152
-ALTER TABLE testdata ADD modified_on TIMESTAMP;
-success!
-timestamp: 2016-04-07T14:24:06.768773
-ALTER TABLE testdata ADD is_active CHAR(1);
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-timestamp: 2016-04-07T15:12:06.843585
-CREATE TABLE testdata_comments(
+timestamp: 2016-04-12T21:39:04.895028
+CREATE TABLE treatment_center(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    body CHAR(512),
-    is_active CHAR(1),
-    created_on TIMESTAMP,
-    created_by INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  ,
-    modified_on TIMESTAMP,
-    modified_by INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  
+    name CHAR(512),
+    country CHAR(512),
+    address CHAR(512)
+);
+success!
+timestamp: 2016-04-12T21:39:05.051538
+CREATE TABLE medical_device(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    device_type CHAR(512),
+    make CHAR(512),
+    model CHAR(512),
+    serial_no CHAR(512)
+);
+success!
+timestamp: 2016-04-12T21:39:05.231047
+CREATE TABLE device_history(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    medical_device INTEGER REFERENCES medical_device (id) ON DELETE CASCADE  ,
+    treatment_center INTEGER REFERENCES treatment_center (id) ON DELETE CASCADE  ,
+    time_used TIMESTAMP,
+    patient_id INTEGER
 );
 success!
 success!
 success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-timestamp: 2016-04-07T15:28:00.798275
-ALTER TABLE testdata_comments ADD testdata INTEGER REFERENCES testdata (id) ON DELETE CASCADE  ;
-success!
-success!
-success!
-success!
-timestamp: 2016-04-07T15:28:42.766338
-ALTER TABLE testdata_comments ADD comment_text CHAR(512);
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
+DROP TABLE device_history;
+success!
+timestamp: 2016-04-13T14:46:55.613283
+CREATE TABLE device_history(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    medical_device INTEGER REFERENCES medical_device (id) ON DELETE CASCADE  ,
+    treatment_center INTEGER REFERENCES treatment_center (id) ON DELETE CASCADE  ,
+    time_used TIMESTAMP,
+    patient_id INTEGER
+);
+success!
+DROP TABLE device_history;
+success!
+timestamp: 2016-04-13T15:41:41.659222
+CREATE TABLE device_history(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    medical_device INTEGER REFERENCES medical_device (id) ON DELETE CASCADE  ,
+    treatment_center INTEGER REFERENCES treatment_center (id) ON DELETE CASCADE  ,
+    time_used TIMESTAMP,
+    patient_id INTEGER
+);
+success!
+DROP TABLE device_history;
+success!
+timestamp: 2016-04-13T16:08:19.952512
+CREATE TABLE device_history(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    medical_device INTEGER REFERENCES medical_device (id) ON DELETE CASCADE  ,
+    treatment_center INTEGER REFERENCES treatment_center (id) ON DELETE CASCADE  ,
+    time_used TIMESTAMP,
+    patient_id INTEGER
+);
 success!

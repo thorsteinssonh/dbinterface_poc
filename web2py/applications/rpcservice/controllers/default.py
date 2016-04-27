@@ -8,21 +8,30 @@
 ## - download is for downloading files uploaded in the db (does streaming)
 #########################################################################
 
-from gluon.tools import Service
-service = Service()
+#from gluon.tools import Service
+#service = Service()
 
 @service.xmlrpc
 def get_entry(id):
-    entry = db(db.testdata.id == id).select()
-    # only str key allowed in rpc
-    ret = {}
-    for key, val in entry:
-        ret[str(key)] = val
-    return {'key1':'10'}
+    entry = db(db.testdata.id == id).select().first()
+    if entry is None:
+        return None
+    else:
+        return entry.as_dict()
 
-def call():
-    session.forget()
-    return service()
+@service.xmlrpc
+def push_entry( entry ):
+    db.testdata.created_on.default = request.now
+    db.testdata.insert( **entry )
+    return True
+
+@service.xmlrpc
+def push_anything(data_in):
+    print data_in
+
+@service.xmlrpc
+def push_datetime(dt):
+    print dt
 
 #@auth.requires_membership("managers")
 def manage():
@@ -86,4 +95,5 @@ def call():
     decorate with @services.jsonrpc the functions to expose
     supports xml, json, xmlrpc, jsonrpc, amfrpc, rss, csv
     """
+    session.forget()
     return service()
