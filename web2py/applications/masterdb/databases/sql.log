@@ -124,3 +124,50 @@ CREATE TABLE device_history(
     patient_id INTEGER
 );
 success!
+timestamp: 2016-04-27T11:58:51.301251
+ALTER TABLE auth_user ADD username CHAR(128);
+success!
+DROP TABLE device_history;
+success!
+timestamp: 2016-04-27T13:16:23.294516
+CREATE TABLE device_history(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    medical_device INTEGER REFERENCES medical_device (id) ON DELETE CASCADE  ,
+    treatment_center INTEGER REFERENCES treatment_center (id) ON DELETE CASCADE  ,
+    time_used TIMESTAMP,
+    patient_id INTEGER
+);
+success!
+DROP TABLE device_history;
+success!
+timestamp: 2016-04-27T13:16:31.556077
+CREATE TABLE device_history(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    medical_device INTEGER REFERENCES medical_device (id) ON DELETE CASCADE  ,
+    treatment_center INTEGER REFERENCES treatment_center (id) ON DELETE CASCADE  ,
+    time_used TIMESTAMP,
+    patient_id INTEGER
+);
+success!
+DROP TABLE device_history;
+success!
+timestamp: 2016-04-27T13:16:44.376891
+CREATE TABLE device_history(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    medical_device INTEGER REFERENCES medical_device (id) ON DELETE CASCADE  ,
+    treatment_center INTEGER REFERENCES treatment_center (id) ON DELETE CASCADE  ,
+    time_used TIMESTAMP,
+    patient_id INTEGER
+);
+success!
+DROP TABLE device_history;
+success!
+timestamp: 2016-04-27T13:16:46.569254
+CREATE TABLE device_history(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    medical_device INTEGER REFERENCES medical_device (id) ON DELETE CASCADE  ,
+    treatment_center INTEGER REFERENCES treatment_center (id) ON DELETE CASCADE  ,
+    time_used TIMESTAMP,
+    patient_id INTEGER
+);
+success!

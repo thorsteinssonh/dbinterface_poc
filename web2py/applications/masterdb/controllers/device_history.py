@@ -13,7 +13,7 @@
 def home():
     return locals()
 
-@auth.requires_login()
+@auth.requires_membership('manager')
 def insert():
     db.device_history.time_used.default = request.now
 #    db.device_history.....writable = False
@@ -23,14 +23,21 @@ def insert():
         response.flash = "success"
     return locals()
 
+@auth.requires_membership('observer')
 def lookup():
     form = FORM('Testform',
                  INPUT( _name='start', _type='datetime'))
     entries = db(db.device_history).select()
     return locals()
 
+@auth.requires_membership('observer')
 def manage():
-    grid = SQLFORM.grid(db.device_history)
+    db.device_history.id.readable = False
+    isMgr = auth.has_membership('manager')
+    grid = SQLFORM.grid(db.device_history,
+                        deletable=isMgr,
+                        editable=isMgr,
+                        create=isMgr)
     return locals()
 
 
@@ -111,7 +118,8 @@ def rpc_remove(k):
     db.device_history(k).delete_record()
 
 @service.xmlrpc
-def rpc_drop():
+def rpc_drop(dummyarg=None):
+    # for no args, must use dummy arg to prevent exposing function
     db.device_history.drop()
 
 @service.xmlrpc
@@ -122,6 +130,7 @@ def rpc_get(k):
     else:
         return None
 
+@auth.requires_membership('webservices')
 def call():
     """
     exposes services. for example:
@@ -129,5 +138,4 @@ def call():
     decorate with @services.jsonrpc the functions to expose
     supports xml, json, xmlrpc, jsonrpc, amfrpc, rss, csv
     """
-    session.forget()
     return service()

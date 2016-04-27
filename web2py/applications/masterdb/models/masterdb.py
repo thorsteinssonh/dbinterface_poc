@@ -4,14 +4,16 @@
 db.define_table('treatment_center',
                 Field('name', requires=IS_NOT_EMPTY()),
                 Field('country', 'string', requires=IS_NOT_EMPTY()),
-                Field('address'))
+                Field('address'),
+                format='%(name)s')
 
 # medical device table
 db.define_table('medical_device',
                 Field('device_type', 'string', requires=IS_NOT_EMPTY()),
                 Field('make', 'string'),
                 Field('model', 'string'),
-                Field('serial_no', 'string'))
+                Field('serial_no', 'string'),
+                format='%(make)s/%(model)s')
 
 # device history table
 db.define_table('device_history',
