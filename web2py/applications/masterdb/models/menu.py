@@ -27,17 +27,17 @@ response.google_analytics_id = None
 ## this is the main application menu add/remove items as required
 #########################################################################
 
-st_submen = [(T('Lookup'), False, URL('site', 'lookup'), []),
-          (T('Insert'), False, URL('site', 'insert'), []),
-          (T('Manage'), False, URL('site', 'manage'), [])]
+st_submen = [(T('Look up'), False, URL('site', 'look_up'), []),
+          (T('Register'), False, URL('site', 'register'), []),
+          (T('Status '), False, URL('site', 'status'), [])]
 
-dv_submen = [(T('Lookup'), False, URL('device', 'lookup'), []),
-          (T('Insert'), False, URL('device', 'insert'), []),
-          (T('Manage'), False, URL('device', 'manage'), [])]
+dv_submen = [(T('Look up'), False, URL('device', 'look_up'), []),
+          (T('Register'), False, URL('device', 'register'), []),
+          (T('Status'), False, URL('device', 'status'), [])]
 
-dh_submen = [(T('Lookup'), False, URL('device_history', 'lookup'), []),
-          (T('Insert'), False, URL('device_history', 'insert'), []),
-          (T('Manage'), False, URL('device_history', 'manage'), [])]
+dh_submen = [(T('Look up'), False, URL('device_history', 'look_up'), []),
+          (T('Register'), False, URL('device_history', 'register'), []),
+          (T('Heartbeat'), False, URL('device_history', 'heartbeat'), [])]
 
 response.menu = [
     (T('Home'), False, URL('home', 'home'), []),

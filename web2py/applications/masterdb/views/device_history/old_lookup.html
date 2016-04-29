@@ -1,5 +1,6 @@
 {{extend 'layout.html'}}
-<h1>Device history lookup</h1>
+<h1>Medical Device History</h1>
+<h2>Lookup</h2>
 {{=form}}
 <h3>
     Results
@@ -7,8 +8,8 @@
 <table class="table">
     {{for entry in entries:}}
     <tr>
-        <td>{{=entry.treatment_center.name}}</td>
-        <td>{{=entry.medical_device.make+"/"+entry.medical_device.model}}</td>
+        <td>{{=entry.site.name}}</td>
+        <td>{{=entry.device.make+"/"+entry.device.model}}</td>
         <td>{{=entry.patient_id}}</td>
         <td>{{=entry.time_used}}</td>
     </tr>

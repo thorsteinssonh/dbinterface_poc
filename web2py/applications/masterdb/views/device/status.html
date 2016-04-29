@@ -1,0 +1,13 @@
+{{extend 'layout.html'}}
+<h1>Medical Device</h1>
+<h2>Status</h2>
+<table class="table">
+    {{for entry in entries:}}
+    <tr>
+        <td>{{=entry.device.make+"/"+entry.device.model}}</td>
+        <td>{{=entry.device.device_type}}</td>
+        <td>{{=entry.device.serial_no}}</td>
+        <td>{{=entry.device_heartbeat.at_time}}</td>
+    </tr>
+    {{pass}}
+</table>

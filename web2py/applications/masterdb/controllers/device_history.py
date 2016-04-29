@@ -14,8 +14,9 @@ def home():
     return locals()
 
 @auth.requires_membership('manager')
-def insert():
+def register():
     db.device_history.time_used.default = request.now
+    db.device_history.time_received.default = request.now
 #    db.device_history.....writable = False
 #    db.device_history.....readable = False
     form = SQLFORM(db.device_history).process()
@@ -24,14 +25,7 @@ def insert():
     return locals()
 
 @auth.requires_membership('observer')
-def lookup():
-    form = FORM('Testform',
-                 INPUT( _name='start', _type='datetime'))
-    entries = db(db.device_history).select()
-    return locals()
-
-@auth.requires_membership('observer')
-def manage():
+def look_up():
     db.device_history.id.readable = False
     isMgr = auth.has_membership('manager')
     grid = SQLFORM.grid(db.device_history,
@@ -40,6 +34,15 @@ def manage():
                         create=isMgr)
     return locals()
 
+@auth.requires_membership('observer')
+def heartbeat():
+    db.device_heartbeat.id.readable = False
+    isMgr = auth.has_membership('manager')
+    grid = SQLFORM.grid(db.device_heartbeat,
+                        deletable=isMgr,
+                        editable=isMgr,
+                        create=isMgr)
+    return locals()
 
 def listing():
     response.title = "web2py sample listing"
@@ -102,9 +105,19 @@ def listing():
 import xmlrpclib, datetime
 
 @service.xmlrpc
+def rpc_heartbeat(device_id, site_id):
+    db.device_heartbeat.insert(at_time=request.now,
+                               device = device_id,
+                               site = site_id,
+                               ip_address = request.client)
+
+@service.xmlrpc
 def rpc_insert(data):
     unmarshal(data)
+    # insert data
+    db.device_history.time_received.default = request.now
     db.device_history.insert(**data)
+    rpc_heartbeat(data['device'], data['site'])
 
 def unmarshal(data):
     """ perform any uncompleted data conversions for DAL.

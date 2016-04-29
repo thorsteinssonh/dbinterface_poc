@@ -1,5 +1,5 @@
 (dp1
-S'medical_device'
+S'time_used'
 p2
 (dp3
 S'length'
@@ -10,19 +10,19 @@ p5
 I00
 sS'sortable'
 p6
-I2
+I4
 sS'sql'
 p7
-S'INTEGER REFERENCES medical_device (id) ON DELETE CASCADE  '
+S'TIMESTAMP'
 p8
 sS'notnull'
 p9
 I00
 sS'type'
 p10
-S'reference medical_device'
+S'datetime'
 p11
-ssS'treatment_center'
+ssS'site'
 p12
 (dp13
 g4
@@ -32,14 +32,14 @@ I00
 sg6
 I3
 sg7
-S'INTEGER REFERENCES treatment_center (id) ON DELETE CASCADE  '
+S'INTEGER REFERENCES site (id) ON DELETE CASCADE  '
 p14
 sg9
 I00
 sg10
-S'reference treatment_center'
+S'reference site'
 p15
-ssS'time_used'
+ssS'patient_id'
 p16
 (dp17
 g4
@@ -47,18 +47,75 @@ I512
 sg5
 I00
 sg6
-I4
+I6
 sg7
-S'TIMESTAMP'
+S'INTEGER'
 p18
 sg9
 I00
 sg10
-S'datetime'
+S'integer'
 p19
-ssS'id'
+ssS'treatment_center'
 p20
 (dp21
+S'sortable'
+p22
+I3
+sS'sql'
+p23
+S'INTEGER REFERENCES treatment_center (id) ON DELETE CASCADE  '
+p24
+sS'length'
+p25
+I512
+sS'notnull'
+p26
+I00
+sS'unique'
+p27
+I00
+sS'type'
+p28
+S'reference treatment_center'
+p29
+ssS'medical_device'
+p30
+(dp31
+g22
+I2
+sg23
+S'INTEGER REFERENCES medical_device (id) ON DELETE CASCADE  '
+p32
+sg25
+I512
+sg26
+I00
+sg27
+I00
+sg28
+S'reference medical_device'
+p33
+ssS'device'
+p34
+(dp35
+g4
+I512
+sg5
+I00
+sg6
+I2
+sg7
+S'INTEGER REFERENCES device (id) ON DELETE CASCADE  '
+p36
+sg9
+I00
+sg10
+S'reference device'
+p37
+ssS'id'
+p38
+(dp39
 g4
 I512
 sg5
@@ -67,14 +124,15 @@ sg6
 I1
 sg7
 S'INTEGER PRIMARY KEY AUTOINCREMENT'
-p22
+p40
 sg9
 I00
 sg10
-g20
-ssS'patient_id'
-p23
-(dp24
+S'id'
+p41
+ssS'time_received'
+p42
+(dp43
 g4
 I512
 sg5
@@ -82,11 +140,10 @@ I00
 sg6
 I5
 sg7
-S'INTEGER'
-p25
+S'TIMESTAMP'
+p44
 sg9
 I00
 sg10
-S'integer'
-p26
+g11
 ss.
