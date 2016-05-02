@@ -8,7 +8,7 @@
 #response.logo = A(B('web',SPAN(2),'py'),XML('&trade;&nbsp;'),
 #                  _class="navbar-brand",_href="http://www.web2py.com/",
 #                  _id="web2py-logo")
-response.logo = A(B('Master',SPAN('DB')),XML('&trade;&nbsp;'), I('concept'),
+response.logo = A(B(SPAN('CHC'),'Master',SPAN('DB')),
                   _class="navbar-brand",_href="http://localhost/",
                   _id="web2py-logo")
 response.title = request.application.replace('_',' ').title()
@@ -39,11 +39,15 @@ dh_submen = [(T('Look up'), False, URL('device_history', 'look_up'), []),
           (T('Register'), False, URL('device_history', 'register'), []),
           (T('Heartbeat'), False, URL('device_history', 'heartbeat'), [])]
 
+lang_submen = [(T('English'), False, URL(vars=dict(lang='en')),[]),
+                (T('Mandarin'), False, URL(vars=dict(lang='zh-tw')),[])]
+
 response.menu = [
     (T('Home'), False, URL('home', 'home'), []),
     (T('Device History'), False, None, dh_submen ),
     (T('Device'), False, None, dv_submen ),
-    (T('Site'), False, None, st_submen )]
+    (T('Site'), False, None, st_submen ),
+    (T('Language'), False, None, lang_submen)]
 
 DEVELOPMENT_MENU = False
 

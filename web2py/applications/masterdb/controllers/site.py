@@ -7,9 +7,11 @@
 ## - user is required for authentication and authorization
 ## - download is for downloading files uploaded in the db (does streaming)
 #########################################################################
+from applications.masterdb.modules.language_session import LanguageSession
 
 # Pages
 @auth.requires_membership('manager')
+@LanguageSession
 def register():
     form = SQLFORM(db.site).process()
     if form.accepted:
@@ -17,6 +19,7 @@ def register():
     return locals()
 
 @auth.requires_membership('observer')
+@LanguageSession
 def look_up():
     db.site.id.readable = False
     isMgr = auth.has_membership('manager')

@@ -7,13 +7,15 @@
 ## - user is required for authentication and authorization
 ## - download is for downloading files uploaded in the db (does streaming)
 #########################################################################
+from applications.masterdb.modules.language_session import LanguageSession
 
+@LanguageSession
 def index():
     """
     Default / home page
     """
-    if request.vars.lang:
-        T.force(request.vars.lang)
+    #if request.vars.lang:
+    #    T.force(request.vars.lang)
     return dict(message=T('The CHC Master Database'))
 
 

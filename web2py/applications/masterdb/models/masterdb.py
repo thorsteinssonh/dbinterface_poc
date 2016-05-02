@@ -4,8 +4,8 @@ from applications.masterdb.modules.device_types import DeviceTypes
 
 # treatement centre table
 db.define_table('site',
-                Field('name', requires=IS_NOT_EMPTY()),
-                Field('country', 'string', requires=IS_IN_SET( Countries )),
+                Field('name', label=T("Name"), requires=IS_NOT_EMPTY()),
+                Field('country', 'string', label=T('Country'), requires=IS_IN_SET( Countries )),
                 Field('address'),
                 Field('phone_number', requires=IS_MATCH('^[+]?[\d]*[\s\d]*$', error_message='can only use +, spaces and digits')),
                 format='%(name)s')
