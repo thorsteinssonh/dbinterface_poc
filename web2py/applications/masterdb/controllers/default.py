@@ -12,6 +12,8 @@ def index():
     """
     Default / home page
     """
+    if request.vars.lang:
+        T.force(request.vars.lang)
     return dict(message=T('The CHC Master Database'))
 
 
@@ -51,5 +53,3 @@ def call():
     supports xml, json, xmlrpc, jsonrpc, amfrpc, rss, csv
     """
     return service()
-
-

@@ -2,12 +2,23 @@
 <h1>Medical Site</h1>
 <h2>Status</h2>
 <table class="table">
-    {{for entry in entries:}}
+    {{for s in sites:}}
     <tr>
-        <td>{{=entry.name}}</td>
-        <td>{{=entry.country}}</td>
-        <td>{{=entry.address}}</td>
-        <td>{{=entry.phone_number}}</td>
+        <td>{{=s.name}}</td>
+        <td>{{=s.country}}</td>
+        <td>{{=s.address}}</td>
+        <td>{{=s.phone_number}}</td>
+        <td>
+            {{if hasattr(s, 'device_list'):}}
+            <ul>
+            {{for dev in s.device_list:}}
+                  <li>
+                  {{=dev.make+"/"+dev.model}}
+                  </li>
+            {{pass}}
+            </ul>
+            {{pass}}
+        </td>
     </tr>
     {{pass}}
 </table>

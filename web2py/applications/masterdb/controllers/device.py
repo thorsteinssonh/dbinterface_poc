@@ -29,8 +29,10 @@ def look_up():
 
 @auth.requires_membership('observer')
 def status():
+    max_hours = 1.0 # maximum time from last heartbeat (if too long indicate red in view)
     entries = db().select(db.device.ALL,
                           db.device_heartbeat.at_time,
+                          db.device_heartbeat.site,
                           left=db.device_heartbeat.on(db.device.id==db.device_heartbeat.device),
                           groupby=db.device.id  )
     #entries = db(db.device).select()

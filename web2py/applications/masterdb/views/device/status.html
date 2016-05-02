@@ -2,12 +2,53 @@
 <h1>Medical Device</h1>
 <h2>Status</h2>
 <table class="table">
+    <tr>
+        <th>Device</th>
+        <th>Serial No.</th>
+        <th>Type</th>
+        <th>Site</th>
+        <th>Status</th>
+        <th></th>
+    </tr>
     {{for entry in entries:}}
     <tr>
         <td>{{=entry.device.make+"/"+entry.device.model}}</td>
-        <td>{{=entry.device.device_type}}</td>
         <td>{{=entry.device.serial_no}}</td>
-        <td>{{=entry.device_heartbeat.at_time}}</td>
+        <td>{{=entry.device.device_type}}</td>
+        <td>{{if entry.device_heartbeat.site:
+                  =entry.device_heartbeat.site.name
+              pass}}</td>
+        <td>{{if entry.device_heartbeat.at_time:
+                hbhours = (request.now - entry.device_heartbeat.at_time).total_seconds()/3600.0
+                if hbhours < max_hours:
+                    ="normal"
+                else:
+                    if hbhours > 48.0:
+                       ="delay %0.1fd"%(hbhours/24.0)
+                    else:
+                       ="delay %0.1fh"%hbhours
+                    pass
+                pass
+              else:
+                hbhours = None
+                ="no signals"
+              pass}}
+        </td>
+        <td>
+            <div style="width: 20px;
+                        height:20px;
+                        text-align:center;
+                        border-radius: 50%;
+                        /*border:0px solid orange;*/
+                        overflow:hidden;
+                        {{if hbhours and hbhours < max_hours:}}
+                        background: #0f0;
+                        {{else:}}
+                        background: #f00;
+                        {{pass}}
+                        box-shadow: 0 0 3px gray;"></div>
+            
+        </td>
     </tr>
     {{pass}}
 </table>
