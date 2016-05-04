@@ -18,3 +18,4 @@
 /web2py/applications/*/sessions
 *.bak
 /web2py/applications/masterdb/modules/language_session.pyc
+/web2py/applications/masterdb/modules/exporters.pyc

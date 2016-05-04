@@ -43,7 +43,7 @@ lang_submen = [(T('English'), False, URL(vars=dict(lang='en')),[]),
                 (T('Mandarin'), False, URL(vars=dict(lang='zh-tw')),[])]
 
 response.menu = [
-    (T('Home'), False, URL('home', 'home'), []),
+    (T('Home'), False, URL('default','index'), []),
     (T('Device History'), False, None, dh_submen ),
     (T('Device'), False, None, dv_submen ),
     (T('Site'), False, None, st_submen ),

@@ -7,13 +7,17 @@
 ## - user is required for authentication and authorization
 ## - download is for downloading files uploaded in the db (does streaming)
 #########################################################################
+from applications.masterdb.modules.language_session import LanguageSession
+from applications.masterdb.modules.exporters import MDBExporterPDF
+
+class DeviceHistoryPDF(MDBExporterPDF):
+    title = T("Medical Device History Transcript")
+    request = request
+    session = session
 
 # Pages
-
-def home():
-    return locals()
-
 @auth.requires_membership('manager')
+@LanguageSession
 def register():
     db.device_history.time_used.default = request.now
     db.device_history.time_received.default = request.now
@@ -25,16 +29,19 @@ def register():
     return locals()
 
 @auth.requires_membership('observer')
+@LanguageSession
 def look_up():
     db.device_history.id.readable = False
     isMgr = auth.has_membership('manager')
     grid = SQLFORM.grid(db.device_history,
                         deletable=isMgr,
                         editable=isMgr,
-                        create=isMgr)
+                        create=isMgr,
+                        exportclasses={'pdf':(DeviceHistoryPDF,'PDF')})
     return locals()
 
 @auth.requires_membership('observer')
+@LanguageSession
 def heartbeat():
     db.device_heartbeat.id.readable = False
     isMgr = auth.has_membership('manager')

@@ -18,6 +18,28 @@
 Some introductory text here
 </p>
 
+{{# Latest device history provided if logged in}}
+{{if latest_history:}}
+<table class="table">
+    <tr>
+        <th colspan="3" style="text-align:center;">Latest Events</th>
+    </tr>
+    <tr>
+        <th>{{=latest_history.db.device_history.site.label}}</th>
+        <th>{{=latest_history.db.device_history.device.label}}</th>
+        <th>{{=latest_history.db.device_history.time_used.label}}</th>
+        
+    </tr>
+    {{for h in latest_history:}}
+    <tr>
+        <td>{{=h.site.name}}</td>
+        <td>{{=h.device.make+"/"+h.device.model}}</td>
+        <td>{{=h.time_used}}</td>
+    </tr>
+    {{pass}}
+</table>
+{{pass}}
+
 {{elif 'content' in globals():}}
 {{=content}}
 {{else:}}

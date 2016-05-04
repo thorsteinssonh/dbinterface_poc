@@ -30,6 +30,7 @@ def look_up():
     return locals()
 
 @auth.requires_membership('observer')
+@LanguageSession
 def status():
     sites = db(db.site).select()
     # also collect info about devices at this site (last known address)

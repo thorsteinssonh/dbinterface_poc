@@ -7,10 +7,12 @@
 ## - user is required for authentication and authorization
 ## - download is for downloading files uploaded in the db (does streaming)
 #########################################################################
+from applications.masterdb.modules.language_session import LanguageSession
 
 # Pages
 
 @auth.requires_membership('manager')
+@LanguageSession
 def register():
     form = SQLFORM(db.device).process()
     if form.accepted:
@@ -18,6 +20,7 @@ def register():
     return locals()
 
 @auth.requires_membership('observer')
+@LanguageSession
 def look_up():
     db.device.id.readable = False
     isMgr = auth.has_membership('manager')
@@ -28,6 +31,7 @@ def look_up():
     return locals()
 
 @auth.requires_membership('observer')
+@LanguageSession
 def status():
     max_hours = 1.0 # maximum time from last heartbeat (if too long indicate red in view)
     entries = db().select(db.device.ALL,

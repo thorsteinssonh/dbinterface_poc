@@ -27,8 +27,8 @@ db.define_table('device_heartbeat',
 
 # device history table
 db.define_table('device_history',
-                 Field('device', 'reference device', required=True, requires=IS_IN_DB(db,'device.id','%(make)s/%(model)s')),
-                 Field('site', 'reference site', required=True, requires=IS_IN_DB(db,'site.id','%(name)s')),
-                 Field('time_used', 'datetime'),
-                 Field('time_received', 'datetime'),
+                 Field('device', 'reference device', label=T('Device'), required=True, requires=IS_IN_DB(db,'device.id','%(make)s/%(model)s')),
+                 Field('site', 'reference site', label=T('Site'), required=True, requires=IS_IN_DB(db,'site.id','%(name)s')),
+                 Field('time_used', 'datetime', label=T('Used at')),
+                 Field('time_received', 'datetime', label=T('Received at')),
                  Field('patient_id', 'integer'))

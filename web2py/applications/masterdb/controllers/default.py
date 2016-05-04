@@ -11,14 +11,15 @@ from applications.masterdb.modules.language_session import LanguageSession
 
 @LanguageSession
 def index():
-    """
-    Default / home page
-    """
-    #if request.vars.lang:
-    #    T.force(request.vars.lang)
-    return dict(message=T('The CHC Master Database'))
+    if auth.has_membership('observer'):
+        latest_history = db(db.device_history).select(orderby=db.device_history.time_used,
+                                                      limitby=(0,10))
+    else:
+        latest_history = None
+    message=T('The CHC Master Database')
+    return locals()
 
-
+@LanguageSession
 def user():
     """
     exposes:
@@ -37,7 +38,6 @@ def user():
     """
     return dict(form=auth())
 
-
 @cache.action()
 def download():
     """
@@ -45,13 +45,3 @@ def download():
     http://..../[app]/default/download/[filename]
     """
     return response.download(request, db)
-
-
-def call():
-    """
-    exposes services. for example:
-    http://..../[app]/default/call/jsonrpc
-    decorate with @services.jsonrpc the functions to expose
-    supports xml, json, xmlrpc, jsonrpc, amfrpc, rss, csv
-    """
-    return service()
