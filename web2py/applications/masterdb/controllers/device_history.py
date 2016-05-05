@@ -12,8 +12,18 @@ from applications.masterdb.modules.exporters import MDBExporterPDF
 
 class DeviceHistoryPDF(MDBExporterPDF):
     title = T("Medical Device History Transcript")
-    request = request
-    session = session
+    search_keywords = request.vars.keywords
+    row_key_styles = [{'key':'device',
+                       'fmt':lambda x: x.make+"/"+x.model,
+                       'wf':0.2},
+                      {'key':'site',
+                       'fmt':lambda x: x.name,
+                       'wf':0.4},
+                      {'key':'time_used',
+                       'fmt':lambda x: x,
+                       'wf':0.2},
+                      {'key':'patient_id',
+                       'wf':0.2}]
 
 # Pages
 @auth.requires_membership('manager')
@@ -33,6 +43,7 @@ def register():
 def look_up():
     db.device_history.id.readable = False
     isMgr = auth.has_membership('manager')
+    request.vars._export_filename = "device_history_transcript"
     grid = SQLFORM.grid(db.device_history,
                         deletable=isMgr,
                         editable=isMgr,
