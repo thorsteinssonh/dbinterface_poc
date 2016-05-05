@@ -12,11 +12,14 @@ from applications.masterdb.modules.language_session import LanguageSession
 @LanguageSession
 def index():
     if auth.has_membership('observer'):
-        latest_history = db(db.device_history).select(orderby=db.device_history.time_used,
+        latest_history = db(db.device_history).select(orderby=~db.device_history.time_used,
                                                       limitby=(0,10))
     else:
         latest_history = None
-    message=T('The CHC Master Database')
+    title = T('CHC Healthcare Group')
+    subtitle = T('medical device database')
+    introductory_text = T('The CHCMasterDB collects information about medical devices provisioned by the CHC Healthcare Group in Taiwan. If you need access to the data here within you must register and ask an administrator for priviledges to access the data.')
+    message = T("hello")
     return locals()
 
 @LanguageSession

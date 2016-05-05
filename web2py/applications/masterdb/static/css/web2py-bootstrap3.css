@@ -105,8 +105,24 @@ select.autocomplete {
     margin: 20px;
 }
 .background {
-   /* background: url(../images/background.jpg) no-repeat center center;*/
-    background-color: #721;
+    /*background: url(../images/background.jpg) no-repeat center center;*/
+    background: url(../images/versa-hd-transparent.png) no-repeat 100% 0%;
+    background-color: /*#721;*/#29abe0
+}
+.jumbotron h1
+{
+    font-size: 36px;
+}
+.jumbotron h3
+{
+    color: white;
+    margin-top:10px;
+    font-size:20px;
+}
+.table th
+{
+    border-top: none !important;
+    border-bottom: 3px solid #dfd7ca !important;
 }
 body {
     padding-top: 60px;
@@ -130,12 +146,14 @@ html {
     background: #333;
     color: #aaa;
 }
-header h1 {
+header h1, h3 {
     color: #FFF!important;
     text-shadow: 0 0 7px #000;
 }
 header .jumbotron {
     background-color: transparent;
+    padding-top: 10px;
+    padding-bottom: 0px;
 }
 .w2p_flash {
     opacity: 0.9!important;
