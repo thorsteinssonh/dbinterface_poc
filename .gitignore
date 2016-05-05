@@ -1,4 +1,12 @@
 /web2py/*
+!/web2py/routes.py
+!/web2py/gluon
+/web2py/gluon/*
+!/web2py/gluon/contrib
+/web2py/gluon/contrib/*
+!/web2py/gluon/contrib/fpdf
+/web2py/gluon/contrib/fpdf/*
+!/web2py/gluon/contrib/fpdf/font
 !/web2py/applications
 /web2py/applications/admin
 /web2py/applications/examples
