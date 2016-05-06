@@ -146,7 +146,7 @@ html {
     background: #333;
     color: #aaa;
 }
-header h1, h3 {
+header h1, header h3 {
     color: #FFF!important;
     text-shadow: 0 0 7px #000;
 }

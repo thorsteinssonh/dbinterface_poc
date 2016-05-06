@@ -8,7 +8,7 @@
 #response.logo = A(B('web',SPAN(2),'py'),XML('&trade;&nbsp;'),
 #                  _class="navbar-brand",_href="http://www.web2py.com/",
 #                  _id="web2py-logo")
-response.logo = A(B(SPAN('CHC'),'Master',SPAN('DB')),
+response.logo = A(B(SPAN(T('CHC')),T('Master'),SPAN(T('DB'))),
                   _class="navbar-brand",_href="http://localhost/",
                   _id="web2py-logo")
 response.title = request.application.replace('_',' ').title()
@@ -28,17 +28,20 @@ response.google_analytics_id = None
 #########################################################################
 
 st_submen = [(T('Look up'), False, URL('site', 'look_up'), []),
-          (T('Register'), False, URL('site', 'register'), []),
           (T('Status '), False, URL('site', 'status'), [])]
+if auth.has_membership('manager'):
+    st_submen.append( (T('Register'), False, URL('site', 'register'), []) )
 
 dv_submen = [(T('Look up'), False, URL('device', 'look_up'), []),
-          (T('Register'), False, URL('device', 'register'), []),
           (T('Status'), False, URL('device', 'status'), [])]
+if auth.has_membership('manager'):
+    dv_submen.append( (T('Register'), False, URL('device', 'register'), []) )
 
 dh_submen = [(T('Look up'), False, URL('device_history', 'look_up'), []),
-          (T('Register'), False, URL('device_history', 'register'), []),
           (T('Heartbeat'), False, URL('device_history', 'heartbeat'), [])]
-
+if auth.has_membership('manager'):
+    dh_submen.append( (T('Register'), False, URL('device_history', 'register'), []) )
+    
 lang_submen = [(T('English'), False, URL(vars=dict(lang='en')),[]),
                 (T('Mandarin'), False, URL(vars=dict(lang='zh-tw')),[])]
 

@@ -33,10 +33,10 @@
     {{for h in latest_history:}}
     <tr>
         <td>{{=h.site.name}}</td>
-        <td>{{=h.site.country}}</td>
+        <td>{{=T(h.site.country)}}</td>
         <td>{{=h.device.make+"/"+h.device.model}}</td>
-        <td>{{=h.device.device_type}}</td>
-        <td>{{=h.time_used}}</td>
+        <td>{{=T(h.device.device_type)}}</td>
+        <td>{{=h.time_used.strftime(str(T('%Y-%m-%d %H:%M:%S'))) if h.time_used is not None else ""}}</td>
     </tr>
     {{pass}}
 </table>
@@ -45,12 +45,12 @@
 {{block right_sidebar}}
 <div class="panel panel-info">
   <div class="panel-heading"><h3 class="panel-title">
-      {{="Navigate"}}
+      {{=T("Navigate")}}
      </h3></div>
   <ul class="list-group">
-    <li class="list-group-item">{{=A( 'Device History', _href=URL('masterdb','device_history','lookup'))}}</li>
-    <li class="list-group-item">{{=A( 'Device', _href=URL('masterdb','device','lookup'))}}</li>
-    <li class="list-group-item">{{=A( 'Site', _href=URL('masterdb','site','lookup'))}}</li>
+    <li class="list-group-item">{{=A( T('Device History'), _href=URL('masterdb','device_history','look_up'))}}</li>
+    <li class="list-group-item">{{=A( T('Device'), _href=URL('masterdb','device','look_up'))}}</li>
+    <li class="list-group-item">{{=A( T('Site'), _href=URL('masterdb','site','look_up'))}}</li>
   </ul>
 </div>
 {{end}}

@@ -1,12 +1,5 @@
 # -*- coding: utf-8 -*-
-# this file is released under public domain and you can use without limitations
 
-#########################################################################
-## This is a sample controller
-## - index is the default action of any application
-## - user is required for authentication and authorization
-## - download is for downloading files uploaded in the db (does streaming)
-#########################################################################
 from applications.masterdb.modules.language_session import LanguageSession
 
 # Pages
@@ -23,6 +16,7 @@ def register():
 def look_up():
     db.site.id.readable = False
     isMgr = auth.has_membership('manager')
+    db.site.country.represent = lambda name, row: T(name)
     grid = SQLFORM.grid(db.site,
                         deletable=isMgr,
                         editable=isMgr,
