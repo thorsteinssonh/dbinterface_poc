@@ -42,3 +42,7 @@ db.define_table('device_history',
                  Field('time_used', 'datetime', label=T('Used At')),
                  Field('time_received', 'datetime', label=T('Received At')),
                  Field('patient_id', 'integer', label=T('Patient Id')))
+
+# SQL request history
+db.define_table('advanced_sql_history',
+                Field('sql_query','text', required=True, notnull=True))
