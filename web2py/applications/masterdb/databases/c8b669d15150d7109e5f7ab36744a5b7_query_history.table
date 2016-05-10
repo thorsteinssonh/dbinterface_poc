@@ -4,27 +4,44 @@ p2
 (dp3
 S'length'
 p4
-I512
+I32768
 sS'unique'
 p5
 I00
 sS'sortable'
 p6
-I2
+I3
 sS'sql'
 p7
-S'CHAR(512) NOT NULL'
+S'TEXT NOT NULL'
 p8
 sS'notnull'
 p9
 I01
 sS'type'
 p10
-S'string'
+S'text'
 p11
-ssS'id'
+ssS'query_name'
 p12
 (dp13
+g4
+I512
+sg5
+I00
+sg6
+I2
+sg7
+S'CHAR(512) NOT NULL'
+p14
+sg9
+I01
+sg10
+S'string'
+p15
+ssS'id'
+p16
+(dp17
 g4
 I512
 sg5
@@ -33,10 +50,9 @@ sg6
 I1
 sg7
 S'INTEGER PRIMARY KEY AUTOINCREMENT'
-p14
+p18
 sg9
 I00
 sg10
-S'id'
-p15
+g16
 ss.

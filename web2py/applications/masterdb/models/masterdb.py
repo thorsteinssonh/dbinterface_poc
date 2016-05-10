@@ -44,5 +44,6 @@ db.define_table('device_history',
                  Field('patient_id', 'integer', label=T('Patient Id')))
 
 # SQL request history
-db.define_table('advanced_sql_history',
+db.define_table('query_history',
+                Field('query_name','string', required=False, notnull=True),
                 Field('sql_query','text', required=True, notnull=True))

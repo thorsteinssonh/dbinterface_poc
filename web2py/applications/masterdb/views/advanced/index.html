@@ -1,13 +1,40 @@
 {{extend 'layout.html'}}
-<h2>Input form</h2>
 {{=form}}
-<!--form enctype="multipart/form-data"
-      action="{{=URL()}}" method="post">
-Your name:
-<input name="name" />
-<input type="submit" />
-</form -->
-<h2>Submitted variables</h2>
-{{=BEAUTIFY(request.vars)}}
-
+{{if sql_result is not None and len(sql_result)>0:}}
+{{keys = sorted( sql_result[0].keys() )
+  if 'id' in keys:
+      keys.remove('id')
+      keys.insert(0,'id')
+      pass}}
+<h2>Result</h2>
+    <table class="table">
+    <tr>
+    {{for x in keys:}}
+        <th>
+        {{=x}}
+        </th>
+    {{pass}}
+    </tr>
+    {{for row in sql_result:}}
+        <tr>
+        {{for x in keys:}}
+            <td>
+            {{=row[x]}}
+            </td>
+        {{pass}}
+        </tr>
+    {{pass}}
+    </table>
+{{else:}}
+<h2>Result</h2>
+<h4>
+    No entries found
+</h4>
+{{pass}}
+{{if sql_error is not None:}}
+    <h2>Query error:</h2>
+    <h4>
+    {{=sql_error}}
+    </h4>
+{{pass}}
 {{#=response.toolbar()}}
