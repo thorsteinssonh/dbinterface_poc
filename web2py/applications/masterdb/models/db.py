@@ -14,8 +14,13 @@ if request.global_settings.web2py_version < "2.14.1":
 
 ## app configuration made easy. Look inside private/appconfig.ini
 from gluon.contrib.appconfig import AppConfig
+from gluon import current
+import os, ConfigParser
 ## once in production, remove reload=True to gain full speed
-myconf = AppConfig(reload=True)
+myconf = AppConfig(reload=False)
+priv_folder = os.path.join(current.request.folder, 'private')
+smtpconf = ConfigParser.RawConfigParser()
+smtpconf.read( os.path.join(priv_folder,"smtp.ini") )
 
 if not request.env.web2py_runtime_gae:
     ## if NOT running on Google App Engine use SQLite or other DB
@@ -72,11 +77,12 @@ auth.settings.allow_basic_login = True
 
 ## configure email
 mail = auth.settings.mailer
-mail.settings.server = 'logging' if request.is_local else myconf.get('smtp.server')
-mail.settings.sender = myconf.get('smtp.sender')
-mail.settings.login = myconf.get('smtp.login')
-mail.settings.tls = myconf.get('smtp.tls') or False
-mail.settings.ssl = myconf.get('smtp.ssl') or False
+#mail.settings.server = 'logging' if request.is_local else myconf.get('smtp.server')
+mail.settings.server = smtpconf.get('smtp','server')
+mail.settings.sender = smtpconf.get('smtp','sender')
+mail.settings.login = smtpconf.get('smtp','login')
+mail.settings.tls = smtpconf.getboolean('smtp','tls') or False
+mail.settings.ssl = smtpconf.getboolean('smtp','ssl') or False
 
 ## configure auth policy
 auth.settings.registration_requires_verification = False
