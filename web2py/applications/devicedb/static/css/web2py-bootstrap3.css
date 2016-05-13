@@ -1,3 +1,28 @@
+a.bulletin_btn
+{
+    line-height: 0;
+    padding: 8px 8px;
+}
+a.bulletin_toggle_on
+{
+   background-color: #0d0;
+}
+a.bulletin_toggle_on:hover
+{
+   background-color: #0d0;
+}
+
+textarea#no_table_sql_query
+{
+   text-transform: uppercase;
+   font-weight: bold;
+}
+
+hr
+{
+    border-top: 3px solid #dfd7ca
+}
+
 div.w2p_flash {
     background-image: none;
     border-radius: 4px;

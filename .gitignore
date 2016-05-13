@@ -28,3 +28,4 @@
 /web2py/applications/masterdb/modules/language_session.pyc
 /web2py/applications/masterdb/modules/exporters.pyc
 /web2py/applications/masterdb/private/smtp.ini
+/web2py/applications/devicedb/private/smtp.ini

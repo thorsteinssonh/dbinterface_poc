@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from applications.masterdb.modules.language_session import LanguageSession
-from applications.masterdb.modules.exporters import MDBExporterPDF
+LanguageSession = local_import('language_session').LanguageSession
+MDBExporterPDF = local_import('exporters').MDBExporterPDF
 
 class DevicePDF(MDBExporterPDF):
     title = T("Medical Device Transcript")

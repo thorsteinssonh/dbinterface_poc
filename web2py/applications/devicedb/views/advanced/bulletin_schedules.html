@@ -1,0 +1,56 @@
+{{extend 'layout.html'}}
+<h1>Bulletin Schedules</h1>
+<button class="btn btn-default" onclick="jQuery('#something').slideToggle()">
+    create new
+</button>
+<div id="something" class="" style="display: none;">
+{{=form}}
+</div>
+<table class="table">
+    <tr>
+        <th></th>
+        <th>trigger</th>
+        <th>content</th>
+        <th>to</th>
+        <th>medium</th>
+        <th>active</th>
+        <th></th>
+    </tr>
+    {{for s in schedules:}}
+     <tr>
+        <td>
+        <a class="button btn btn-default bulletin_btn
+                  {{="bulletin_toggle_on" if s.is_active else "bulletin_toggle_off"}}"
+                  href="{{=URL(args=('toggle',s.id))}}">
+            <span class="icon icon-off glyphicon glyphicon-off">
+            </span>
+        </a>
+        <a class="button btn btn-default bulletin_btn bulletin_test"
+           href="{{=URL(args=('test',s.id))}}">
+        <span class="icon envelope icon-envelope glyphicon glyphicon-envelope"></span>
+        </a>
+        </td>
+        <td>
+        {{=s.trigger_expression}}
+        </td>
+        <td>
+        {{=s.content_type}}
+        </td>
+        <td>
+        {{=s.to_user.first_name+" "+s.to_user.last_name}}
+        </td>
+        <td>
+        {{=s.medium}}
+        </td>
+        <td>
+        {{=s.is_active}}
+        </td>
+        <td>
+        <a class="button btn btn-default bulletin_btn bulletin_delete"
+           href="{{=URL(args=('delete',s.id))}}">
+            <span class="icon trash icon-trash glyphicon glyphicon-trash"></span>
+        </a>
+        </td>
+    </tr>
+    {{pass}}
+</table>

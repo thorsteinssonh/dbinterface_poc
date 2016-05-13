@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from applications.masterdb.modules.countries import Countries
-from applications.masterdb.modules.device_types import DeviceTypes
+from applications.devicedb.modules.countries import Countries
+from applications.devicedb.modules.device_types import DeviceTypes
 
 # treatement centre table
 db.define_table('site',
@@ -42,8 +42,3 @@ db.define_table('device_history',
                  Field('time_used', 'datetime', label=T('Used At')),
                  Field('time_received', 'datetime', label=T('Received At')),
                  Field('patient_id', 'integer', label=T('Patient Id')))
-
-# SQL request history
-db.define_table('query_history',
-                Field('query_name','string', required=False, notnull=True),
-                Field('sql_query','text', required=True, notnull=True))

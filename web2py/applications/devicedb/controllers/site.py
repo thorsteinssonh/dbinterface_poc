@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from applications.masterdb.modules.language_session import LanguageSession
+LanguageSession = local_import('language_session').LanguageSession
 
 # Pages
 @auth.requires_membership('manager')

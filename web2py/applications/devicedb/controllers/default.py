@@ -1,13 +1,6 @@
 # -*- coding: utf-8 -*-
-# this file is released under public domain and you can use without limitations
 
-#########################################################################
-## This is a sample controller
-## - index is the default action of any application
-## - user is required for authentication and authorization
-## - download is for downloading files uploaded in the db (does streaming)
-#########################################################################
-from applications.masterdb.modules.language_session import LanguageSession
+LanguageSession = local_import('language_session').LanguageSession
 
 @LanguageSession
 def index():
@@ -18,7 +11,7 @@ def index():
         latest_history = None
     title = T('CHC Healthcare Group')
     subtitle = T('medical device database')
-    introductory_text = T('The CHCMasterDB collects information about medical devices provisioned by the CHC Healthcare Group in Taiwan. If you need access to the data here within you must register and ask an administrator for priviledges to access the data.')
+    introductory_text = T('The CHCDeviceDB collects information about medical devices provisioned by the CHC Healthcare Group in Taiwan. If you need access to the data here within you must register and ask an administrator for priviledges to access the data.')
     message = T("hello")
     return locals()
 
