@@ -3,17 +3,21 @@
 <button class="btn btn-default" onclick="jQuery('#something').slideToggle()">
     create new
 </button>
+{{if len(request.vars)>0:}}
+<div id="something" class="" style="">
+{{else:}}
 <div id="something" class="" style="display: none;">
+{{pass}}
 {{=form}}
 </div>
 <table class="table">
     <tr>
         <th></th>
-        <th>trigger</th>
+        <th>expression</th>
         <th>content</th>
         <th>to</th>
         <th>medium</th>
-        <th>active</th>
+        <th>last exec</th>
         <th></th>
     </tr>
     {{for s in schedules:}}
@@ -43,7 +47,7 @@
         {{=s.medium}}
         </td>
         <td>
-        {{=s.is_active}}
+        {{=s.last_execution}}
         </td>
         <td>
         <a class="button btn btn-default bulletin_btn bulletin_delete"

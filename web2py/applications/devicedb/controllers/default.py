@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-LanguageSession = local_import('language_session').LanguageSession
+from language_session import LanguageSession
 
 @LanguageSession
 def index():

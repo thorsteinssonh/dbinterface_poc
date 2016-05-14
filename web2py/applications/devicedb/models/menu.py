@@ -41,16 +41,21 @@ dh_submen = [(T('Look up'), False, URL('device_history', 'look_up'), []),
           (T('Heartbeat'), False, URL('device_history', 'heartbeat'), [])]
 if auth.has_membership('manager'):
     dh_submen.append( (T('Register'), False, URL('device_history', 'register'), []) )
-    
+
 lang_submen = [(T('English'), False, URL(vars=dict(lang='en')),[]),
                 (T('Mandarin'), False, URL(vars=dict(lang='zh-tw')),[])]
+
+mn_submen = [(T('SQL'), False, URL('manager', 'sql'), []),
+             (T('Bulletin'), False, URL('manager', 'bulletin_schedules'), [])]
 
 response.menu = [
     (T('Home'), False, URL('default','index'), []),
     (T('Device History'), False, None, dh_submen ),
     (T('Device'), False, None, dv_submen ),
-    (T('Site'), False, None, st_submen ),
-    (T('Language'), False, None, lang_submen)]
+    (T('Site'), False, None, st_submen )]
+if auth.has_membership('manager'):
+    response.menu.append( (T('Manager'), False, None, mn_submen) )
+response.menu.append( (T('Language'), False, None, lang_submen) )
 
 DEVELOPMENT_MENU = False
 

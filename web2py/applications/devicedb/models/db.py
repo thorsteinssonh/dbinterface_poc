@@ -89,6 +89,9 @@ auth.settings.registration_requires_verification = False
 auth.settings.registration_requires_approval = False
 auth.settings.reset_password_requires_verification = True
 
+# expose mail object to modules
+current.mail = mail
+current.db = db
 #########################################################################
 ## Define your tables below (or better in another model file) for example
 ##
