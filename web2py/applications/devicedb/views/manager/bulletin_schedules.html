@@ -10,6 +10,15 @@
 {{pass}}
 {{=form}}
 </div>
+{{if scheduler_active:}}
+    <h4>
+        Scheduler process is active
+    </h4>
+{{else:}}
+    <h4 style="background-color: #faa">
+        Scheduler process is off: Consult system admin
+    </h4>
+{{pass}}
 <table class="table">
     <tr>
         <th></th>

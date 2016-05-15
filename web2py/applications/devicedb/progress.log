@@ -2467,3 +2467,10 @@
 [2016-05-14 11:34:26] EDIT devicedb/modules/bulletin.py: 0
 [2016-05-14 11:40:31] EDIT devicedb/modules/bulletin.py: 0
 [2016-05-14 11:40:43] EDIT devicedb/modules/bulletin.py: 0
+[2016-05-14 09:48:00] EDIT devicedb/controllers/manager.py: 2
+[2016-05-14 09:50:06] EDIT devicedb/controllers/manager.py: 0
+[2016-05-14 09:51:46] EDIT devicedb/controllers/manager.py: 0
+[2016-05-14 09:52:37] EDIT devicedb/views/manager/bulletin_schedules.html: 1
+[2016-05-14 15:58:17] EDIT devicedb/views/manager/bulletin_schedules.html: 8
+[2016-05-14 15:59:20] EDIT devicedb/views/manager/bulletin_schedules.html: 0
+[2016-05-14 15:59:51] EDIT devicedb/views/manager/bulletin_schedules.html: 0

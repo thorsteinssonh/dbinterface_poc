@@ -37,6 +37,8 @@ def bulletin():
 
 @auth.requires_membership('manager')
 def bulletin_schedules():
+    # check scheduler worker status
+    scheduler_active = (request.now - sched_db(sched_db.scheduler_worker).select().first().last_heartbeat).total_seconds() < 120.0
     # handle arguments
     if len(request.args)==2:
         if request.args[0]=="delete":
