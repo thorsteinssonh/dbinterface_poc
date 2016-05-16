@@ -4,5 +4,7 @@ set -e
 # Apache gets grumpy about PID files pre-existing
 rm -f /var/run/apache2/apache2.pid
 
+python /var/www/html/web2py.py -K devicedb &
+
 source /etc/apache2/envvars
 exec apache2 -DFOREGROUND
