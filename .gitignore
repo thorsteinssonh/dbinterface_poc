@@ -1,3 +1,4 @@
+*.pyc
 /web2py/*
 !/web2py/routes.py
 !/web2py/gluon
