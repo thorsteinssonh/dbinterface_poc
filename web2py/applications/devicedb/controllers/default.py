@@ -11,7 +11,7 @@ def index():
         latest_history = None
     title = T('CHC Healthcare Group')
     subtitle = T('medical device database')
-    introductory_text = T('The CHCDeviceDB collects information about medical devices provisioned by the CHC Healthcare Group in Taiwan. If you need access to the data here within you must register and ask an administrator for priviledges to access the data.')
+    introductory_text = T('The CHCDeviceDB collects information about medical devices provisioned by the CHC Healthcare Group in Taiwan. If you need access to the data here within you must register and ask an administrator for privileges to access the data.')
     message = T("hello")
     return locals()
 

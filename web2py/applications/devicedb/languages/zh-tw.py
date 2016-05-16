@@ -312,6 +312,7 @@
 'Testing application': '測試中的應用程式',
 'The "query" is a condition like "db.table1.field1==\'value\'". Something like "db.table1.field1==db.table2.field2" results in a SQL JOIN.': '"查詢"是一個像 "db.表1.欄位1==\'值\'" 的條件式. 以"db.表1.欄位1==db.表2.欄位2"方式則相當於執行 JOIN SQL.',
 'The CHCDeviceDB collects information about medical devices provisioned by the CHC Healthcare Group in Taiwan. If you need access to the data here within you must register and ask an administrator for priviledges to access the data.': 'CHCDeviceDB 收集所有由CHC醫療集團在台灣提供的醫療設備的資訊。 如果您有需要此資料庫內的資訊，請您先在網站上註冊，並請資料庫管理人給您瀏覽資訊的權限。 ',
+'The CHCDeviceDB collects information about medical devices provisioned by the CHC Healthcare Group in Taiwan. If you need access to the data here within you must register and ask an administrator for privileges to access the data.': 'CHCDeviceDB 收集所有由CHC醫療集團在台灣提供的醫療設備的資訊。 如果您有需要此資料庫內的資訊，請您先在網站上註冊，並請資料庫管理人給您瀏覽資訊的權限。 ',
 'The CHCMasterDB collects information about medical devices provisioned by the CHC Healthcare Group in Taiwan. If you need access to the data here within you must register and ask an administrator for priviledges to access the data.': 'CHCMasterDB  收集所有由CHC醫療集團在台灣提供的醫療設備的資訊。 如果您有需要此資料庫內的資訊，請您先在網站上註冊，並請資料庫管理人給您瀏覽資訊的權限。 ',
 'The Core': 'The Core',
 'The output of the file is a dictionary that was rendered by the view %s': 'The output of the file is a dictionary that was rendered by the view %s',
