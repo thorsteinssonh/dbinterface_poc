@@ -32,6 +32,7 @@ RUN a2ensite default
 # Application
 ADD web2py /var/www/html/
 RUN mv /var/www/html/handlers/wsgihandler.py /var/www/html/wsgihandler.py
+RUN find /var/www/html/gluon -name "*.pkl" -delete
 RUN chown -R www-data:www-data /var/www/html/
 
 # Insert main job script
