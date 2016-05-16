@@ -22,22 +22,23 @@ db.define_table('device',
                 Field('make', 'string', label=T('Make')),
                 Field('model', 'string', label=T('Model')),
                 Field('serial_no', 'string',label=T('Serial No')),
-                format='%(make)s/%(model)s')
+                Field('special_alias', 'string',label=T('Alias')),
+                format='%(make)s/%(model)s (%(special_alias)s)')
 
 # medical device heartbeat (i.e. connectivity to masterdb)
 db.define_table('device_heartbeat',
                 Field('at_time', 'datetime', label=T('At Time'), required=True),
                 Field('device', 'reference device',
                       label=T('Device'), required=True,
-                      requires=IS_IN_DB(db, 'device.id')),
+                      requires=IS_IN_DB(db, 'device.id', '%(make)s/%(model)s (%(special_alias)s)')),
                 Field('site', 'reference site', 
                       label=T('Site'), required=True, 
-                      requires=IS_IN_DB(db, 'site.id')),
+                      requires=IS_IN_DB(db, 'site.id', '%(name)s')),
                 Field('ip_address', 'string', label=T('IP Address')) )
 
 # device history table
 db.define_table('device_history',
-                 Field('device', 'reference device', label=T('Device'), required=True, requires=IS_IN_DB(db,'device.id','%(make)s/%(model)s')),
+                 Field('device', 'reference device', label=T('Device'), required=True, requires=IS_IN_DB(db,'device.id','%(make)s/%(model)s (%(special_alias)s)')),
                  Field('site', 'reference site', label=T('Site'), required=True, requires=IS_IN_DB(db,'site.id','%(name)s')),
                  Field('time_used', 'datetime', label=T('Used At')),
                  Field('time_received', 'datetime', label=T('Received At')),

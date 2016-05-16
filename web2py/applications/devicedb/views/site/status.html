@@ -2,6 +2,13 @@
 <h1>{{=T('Medical Site')}}</h1>
 <h2>{{=T('Status')}}</h2>
 <table class="table">
+    <tr>
+        <th>{{=T("Name")}}</th>
+        <th>{{=T("Country")}}</th>
+        <th>{{=T("Address")}}</th>
+        <th>{{=T("Phone Number")}}</th>
+        <th>{{=T("Devices")}}</th>
+    </tr>
     {{for s in sites:}}
     <tr>
         <td>{{=s.name}}</td>

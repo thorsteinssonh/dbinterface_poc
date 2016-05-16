@@ -3,17 +3,21 @@
 <h2>{{=T('Status')}}</h2>
 <table class="table">
     <tr>
-        <th>Device</th>
-        <th>Serial No.</th>
-        <th>Type</th>
-        <th>Site</th>
-        <th>Status</th>
+        <th>{{=T("Device")}}</th>
+        <th>{{=T("Serial No")}}</th>
+        <th>{{=T("Alias")}}</th>
+        <th>{{=T("Device Type")}}</th>
+        <th>{{=T("Site")}}</th>
+        <th>{{=T("Status")}}</th>
         <th></th>
     </tr>
     {{for entry in entries:}}
     <tr>
         <td>{{=entry.device.make+"/"+entry.device.model}}</td>
         <td>{{=entry.device.serial_no}}</td>
+        <td>{{if entry.device.special_alias:
+                  =entry.device.special_alias
+              pass}}</td>
         <td>{{=entry.device.device_type}}</td>
         <td>{{if entry.device_heartbeat.site:
                   =entry.device_heartbeat.site.name

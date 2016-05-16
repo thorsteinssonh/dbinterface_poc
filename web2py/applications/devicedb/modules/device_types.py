@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-DeviceTypes = ('Radiotherapy',
+DeviceTypes = ('Linear Accelerator',
                'Proton Therapy',
-               'Volumetric Arc Modulated Therapy',
                'Gamma Knife Radiosurgery',
-               'Magnetoencephalography')
+               'MRI-Linac')
