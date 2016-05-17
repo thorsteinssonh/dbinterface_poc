@@ -1,0 +1,14 @@
+{{extend 'layout.html'}}
+<h1>Test ajax reload signal</h1>
+<h3 class="indicator">
+    Table is unchanged.
+</h3>
+<table class="table">
+    {{for r in rows:}}
+    <tr>
+    <td>{{=r.id}}</td>
+    <td>{{=r.time_used}}</td>
+    </tr>
+    {{pass}}
+</table>
+{{include 'page_reload_script.html'}}

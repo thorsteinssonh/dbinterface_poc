@@ -9,7 +9,7 @@
 #                  _class="navbar-brand",_href="http://www.web2py.com/",
 #                  _id="web2py-logo")
 response.logo = A(B(SPAN(T('CHC')),T('Device'),SPAN(T('DB'))),
-                  _class="navbar-brand",_href="http://localhost/",
+                  _class="navbar-brand",_href="",
                   _id="web2py-logo")
 response.title = request.application.replace('_',' ').title()
 response.subtitle = ''
