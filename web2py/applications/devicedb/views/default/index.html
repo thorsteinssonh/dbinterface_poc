@@ -1,4 +1,4 @@
-{{left_sidebar_enabled,right_sidebar_enabled=False,('message' in globals())}}
+{{left_sidebar_enabled,right_sidebar_enabled=False,True}}
 {{extend 'layout.html'}}
 
 {{block header}}
@@ -12,45 +12,59 @@
 {{end}}
 
 <!--p class="lead"-->
+<div style="display:inline-block;">
+    <h3>
+        {{=T("Introduction")}}
+    </h3>
+</div>
 <p>
 {{=introductory_text}}
 </p>
 
 {{# Latest device history provided if logged in}}
-{{if latest_history:}}
-<table class="table">
-    <!--tr>
-        <th colspan="3" style="text-align:center;">Latest Events</th>
-    </tr-->
-    <tr>
-        <th>{{=latest_history.db.device_history.site.label}}</th>
-        <th>{{=latest_history.db.site.country.label}}</th>
-        <th>{{=latest_history.db.device_history.device.label}}</th>
-        <th>{{=latest_history.db.device.device_type.label}}</th>
-        <th>{{=latest_history.db.device_history.time_used.label}}</th>
-        
-    </tr>
-    {{for h in latest_history:}}
-    <tr>
-        <td>{{=h.site.name}}</td>
-        <td>{{=T(h.site.country)}}</td>
-        <td>{{=h.device.make+"/"+h.device.model}}</td>
-        <td>{{=T(h.device.device_type)}}</td>
-        <td>{{=h.time_used.strftime(str(T('%Y-%m-%d %H:%M:%S'))) if h.time_used is not None else ""}}</td>
-    </tr>
-    {{pass}}
-</table>
+{{if 'latest_history' in globals():}}
+<div class="panel panel-info">
+    <table class="table">
+        <tr>
+            <th colspan="5" style="text-align:center;">Latest Device Usage</th>
+        </tr>
+        <tr>
+            <th>{{=latest_history.db.device_history.site.label}}</th>
+            <th>{{=latest_history.db.site.country.label}}</th>
+            <th>{{=latest_history.db.device_history.device.label}}</th>
+            <th>{{=latest_history.db.device.device_type.label}}</th>
+            <th>{{=latest_history.db.device_history.time_used.label}}</th>
+
+        </tr>
+        {{for i, h in enumerate(latest_history):}}
+        <tr class="{{='even_row' if i%2 else ''}}">
+            <td>{{=h.site.name}}</td>
+            <td>{{=T(h.site.country)}}</td>
+            <td>{{=h.device.make+"/"+h.device.model}}</td>
+            <td>{{=T(h.device.device_type)}}</td>
+            <td>{{=h.time_used.strftime(str(T('%Y-%m-%d %H:%M:%S'))) if h.time_used is not None else ""}}</td>
+        </tr>
+        {{pass}}
+    </table>
+</div>
 {{pass}}
 
 {{block right_sidebar}}
-<div class="panel panel-info">
+{{if 'service_summary' in globals():}}
+<div class="panel panel-info service_summary">
   <div class="panel-heading"><h3 class="panel-title">
-      {{=T("Navigate")}}
+      <b>{{=T("Service summary")}}</b>
      </h3></div>
   <ul class="list-group">
-    <li class="list-group-item">{{=A( T('Device History'), _href=URL('masterdb','device_history','look_up'))}}</li>
-    <li class="list-group-item">{{=A( T('Device'), _href=URL('masterdb','device','look_up'))}}</li>
-    <li class="list-group-item">{{=A( T('Site'), _href=URL('masterdb','site','look_up'))}}</li>
+    <a href="{{=URL('site','look_up')}}">
+    <li class="list-group-item">{{=T('sites serviced')}}<div style="float:right;"><b>{{=service_summary['total_sites']}}</b></div></li></a>
+    <a href="{{=URL('device','look_up')}}">
+        <li class="list-group-item">{{=T('medical devices')}} <div style="float:right;"><b>{{=service_summary['total_devices']}}</b></div></li></a>
+    <a href="{{=URL('device_history','look_up')}}">
+        <li class="list-group-item">{{=T('treatments to date')}} <div style="float:right;"><b>{{=service_summary['total_treatments']}}</b></div></li></a>
+    <a href="{{=URL('device_history','look_up')}}">
+        <li class="list-group-item">{{=T('patients to date')}} <div style="float:right;"><b>{{=service_summary['total_patients']}}</b></div></li></a>
   </ul>
 </div>
+{{pass}}
 {{end}}

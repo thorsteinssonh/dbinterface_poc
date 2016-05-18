@@ -1,3 +1,61 @@
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus
+{
+    background-color: #4e4f4a;
+    color: #ffffff;
+}
+
+.navbar-nav > li:hover, .dropdown.open > a.dropdown-toggle
+{
+    background-color: #4e4f4a;
+}
+
+div.service_summary li
+{
+    font-weight: 500;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+div.service_summary li:hover
+{
+    color: white;
+    background-color: #29abe0;
+}
+
+div.service_summary
+{
+    max-width: 400px;
+}
+
+div.panel-info
+{
+    box-shadow: 1px 2px 2px #000;
+}
+
+div.panel-info th
+{
+    color: white;
+    background-color: #29abe0;
+    border-bottom: none;
+    text-transform: uppercase;
+}
+
+div.panel-info td
+{
+    border-bottom: none;
+    border-top: none !important;
+}
+
+div.panel-info tr
+{
+    border-color: #29abe0;
+}
+
+.table tr.even_row
+{
+    background-color: #ddd;
+}
+
 a.bulletin_btn
 {
     line-height: 0;
@@ -147,7 +205,7 @@ select.autocomplete {
 .table th
 {
     border-top: none !important;
-    border-bottom: 3px solid #dfd7ca !important;
+    border-bottom: 3px solid #dfd7ca;
 }
 body {
     padding-top: 60px;
