@@ -2,7 +2,7 @@
 <script>
 (function worker() {
   $.ajax({
-    url: '{{="/ajax/"+page_reload}}',
+    url: '{{=page_reload}}',
     success: function(data) {
         if(data=="True") { window.location.reload(); }
     },

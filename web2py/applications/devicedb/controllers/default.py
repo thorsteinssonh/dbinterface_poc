@@ -5,9 +5,18 @@ from datetime import datetime, timedelta
 
 @LanguageSession
 def index():
-    if auth.has_membership('observer'):
-        latest_history = db(db.device_history).select(orderby=~db.device_history.time_used,
-                                                      limitby=(0,10))
+    # fetch 5 latest device events to decorate front page
+    latest_history = db(db.device_history).select(orderby=~db.device_history.time_used,
+                                                  limitby=(0,5))
+    # hide location of devices and user id if member is not observer or logged in
+    # Note: this is a bit quick and dirty
+    #       access controll more secure with model fields properties
+    if not auth.has_membership('observer'):
+        for x in latest_history:
+            x.patient_id = T("hidden")
+            x.site.name = T("hidden")
+            x.site.country = T("hidden")
+    
     # introduction
     title = T('CHC Healthcare Group')
     subtitle = T('medical device database')
@@ -18,6 +27,8 @@ def index():
     service_summary['total_devices'] = db(db.device).count()
     service_summary['total_treatments'] = db(db.device_history.time_used < request.now).count()
     service_summary['total_patients'] = len(db(db.device_history.time_used < request.now).select(db.device_history.site, db.device_history.patient_id, distinct=True))
+    # set page reload trigger (for ajax included in view)
+    page_reload = "/ajax/dh_page_reload"
     return locals()
 
 @LanguageSession

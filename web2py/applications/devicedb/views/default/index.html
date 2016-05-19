@@ -23,31 +23,49 @@
 
 {{# Latest device history provided if logged in}}
 {{if 'latest_history' in globals():}}
-<div class="panel panel-info">
+<div class="panel panel-info panel_info_table">
     <table class="table">
-        <tr>
-            <th colspan="5" style="text-align:center;">Latest Device Usage</th>
+        <tr class="table_head_row">
+            <th colspan="6" style="text-align:center;">{{=T("5 Most Recent Device Events")}}</th>
         </tr>
-        <tr>
+        <tr class="table_head_row">
+            <th></th>
             <th>{{=latest_history.db.device_history.site.label}}</th>
             <th>{{=latest_history.db.site.country.label}}</th>
             <th>{{=latest_history.db.device_history.device.label}}</th>
             <th>{{=latest_history.db.device.device_type.label}}</th>
-            <th>{{=latest_history.db.device_history.time_used.label}}</th>
+            <th>{{=T("Used")}}</th>
 
         </tr>
         {{for i, h in enumerate(latest_history):}}
         <tr class="{{='even_row' if i%2 else ''}}">
+            <td>{{=i+1}}</td>
             <td>{{=h.site.name}}</td>
             <td>{{=T(h.site.country)}}</td>
             <td>{{=h.device.make+"/"+h.device.model}}</td>
             <td>{{=T(h.device.device_type)}}</td>
-            <td>{{=h.time_used.strftime(str(T('%Y-%m-%d %H:%M:%S'))) if h.time_used is not None else ""}}</td>
+            {{
+            if h.time_used is not None:
+                dt = (request.now - h.time_used).total_seconds()/60.0
+                if dt < 60.0:
+                    dtstr = "%.1f "%(dt) + T("minutes ago")
+                elif dt < 1440.0:
+                    dtstr = "%.1f "%(dt/60.0) + T("hours ago")
+                else:
+                    dtstr = "%.1f "%(dt/1440.0) + T("days ago")
+                    pass
+            else:
+                dtstr=""
+                pass
+            }}
+            <td>{{=dtstr}}</td>
         </tr>
         {{pass}}
     </table>
 </div>
 {{pass}}
+
+{{include 'page_reload_script.html'}}
 
 {{block right_sidebar}}
 {{if 'service_summary' in globals():}}

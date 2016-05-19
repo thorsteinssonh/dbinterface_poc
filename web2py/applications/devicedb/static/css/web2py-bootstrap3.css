@@ -32,7 +32,12 @@ div.panel-info
     box-shadow: 1px 2px 2px #000;
 }
 
-div.panel-info th
+div.panel_info_table
+{
+    min-width: 600px;
+}
+
+div.panel_info_table th
 {
     color: white;
     background-color: #29abe0;
@@ -40,15 +45,21 @@ div.panel-info th
     text-transform: uppercase;
 }
 
-div.panel-info td
+div.panel_info_table td
 {
     border-bottom: none;
     border-top: none !important;
 }
 
-div.panel-info tr
+div.panel_info_table tr
 {
     border-color: #29abe0;
+}
+
+div.panel_info_table tr.table_head_row
+{
+    /* this is to fill in hair thin gaps visible in chrome */
+    background-color: #29abe0;
 }
 
 .table tr.even_row
@@ -91,7 +102,7 @@ div.w2p_flash {
     font-weight: 400;
     min-width: 28px;
     max-width: 300px;
-    opacity: 1;
+    opacity: 0.85;
     vertical-align: baseline;
     right: auto;
     border-width: 1px;
@@ -127,8 +138,9 @@ div.w2p_flash.alert {
     right: 75px;
     cursor: pointer;
     z-index: 1000;
-    background-color: #f9edbe;
-    border-color: #f0c36d;
+    background-color: #eee;
+    text-transform: uppercase;
+    border-color: #777;
 }
 .w2p-toolbar-hidden {
     margin: 10px;
@@ -239,7 +251,7 @@ header .jumbotron {
     padding-bottom: 0px;
 }
 .w2p_flash {
-    opacity: 0.9!important;
+    opacity: 0.85;
     right: 100px;
 }
 .right {

@@ -3,7 +3,7 @@
 from datetime import datetime
 
 def dh_page_reload():
-    page_reload("device_history")
+    return page_reload("device_history")
 
 def page_reload(table_name):
     tbl_state = get_table_state(table_name)

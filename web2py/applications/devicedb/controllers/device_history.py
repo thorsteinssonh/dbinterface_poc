@@ -42,7 +42,7 @@ def look_up():
                         editable=isMgr,
                         create=isMgr,
                         exportclasses={'pdf':(DeviceHistoryPDF,'PDF')})
-    page_reload = "device_history"
+    page_reload = "/ajax/dh_page_reload"
     return locals()
 
 @auth.requires_membership('observer')
