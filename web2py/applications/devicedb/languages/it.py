@@ -1,4 +1,4 @@
-# coding: utf8
+# -*- coding: utf-8 -*-
 {
 '!=': '!=',
 '!langcode!': 'it',
@@ -244,6 +244,6 @@
 'Working...': 'Working...',
 'XML': 'XML',
 'You are successfully running web2py': 'Stai eseguendo web2py con successo',
-'You can modify this application and adapt it to your needs': 'Puoi modificare questa applicazione adattandola alle tue necessità',
+'You can modify this application and adapt it to your needs': 'Puoi modificare questa applicazione adattandola alle tue necessità\r\nTESTS2  LETS SEE IF IT WORKS, MORE STUF6',
 'You visited the url %s': "Hai visitato l'URL %s",
 }

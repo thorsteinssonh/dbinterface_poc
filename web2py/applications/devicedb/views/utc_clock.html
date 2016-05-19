@@ -1,0 +1,27 @@
+<div class="clock utc_clock" style="float: right; text-align: right;">
+<h4>UTC <span id="Date"></span></h4>
+<h4><span id="hours"></span>:<span id="min"></span>:<span id="sec"></span></h4>
+</div>
+
+<script>
+$(document).ready(function() {
+// Create a newDate() object
+var newDate = new Date();
+$('#Date').html(newDate.getUTCFullYear() + "-" + (newDate.getUTCMonth()+1) + "-" + newDate.getUTCDate());
+
+    
+function print_time_callback()
+{
+    var d = new Date()
+    var seconds = d.getUTCSeconds();
+    var minutes = d.getUTCMinutes();
+    var hours = d.getUTCHours();
+    // Add a leading zero to seconds value
+    $("#sec").html(( seconds < 10 ? "0" : "" ) + seconds);
+    $("#min").html(( minutes < 10 ? "0" : "" ) + minutes);
+    $("#hours").html(( hours < 10 ? "0" : "" ) + hours);
+}
+print_time_callback()
+setInterval( print_time_callback, 1000);
+});
+</script>

@@ -88,3 +88,71 @@ def delete_bulletin_schedule(id):
 #                         repeats=0,
 #                         period=10)
 #    return "done"
+
+from gluon.languages import (read_possible_languages, read_dict, write_dict,
+                             read_plural_dict, write_plural_dict)
+from gluon.admin import apath
+from gluon.utils import md5_hash
+
+@auth.requires_membership('manager')
+@LanguageSession
+def edit_language():
+    """ Edit language file """
+    #app = get_app()
+    lang = ("zh-tw",T("Mandarin"))
+    args = ['devicedb','languages',lang[0]+'.py']
+    filename = '/'.join(args)
+    response.title = args[-1]
+    strings = read_dict(apath(filename, r=request))
+
+    if '__corrupted__' in strings:
+        form = SPAN(strings['__corrupted__'], _class='error')
+        return dict(filename=filename, form=form)
+
+    keys = sorted(strings.keys(), lambda x, y: cmp(
+        unicode(x, 'utf-8').lower(), unicode(y, 'utf-8').lower()))
+    rows = []
+    rows.append(H2(T('Original/Translation')))
+
+    for key in keys:
+        name = md5_hash(key)
+        s = strings[key]
+        (prefix, sep, key) = key.partition('\x01')
+        if sep:
+            prefix = SPAN(prefix + ': ', _class='tm_ftag')
+            k = key
+        else:
+            (k, prefix) = (prefix, '')
+
+        _class = 'untranslated' if k == s else 'translated'
+
+        if len(s) <= 40:
+            elem = INPUT(_type='text', _name=name, value=s,
+                         _size=70, _class=_class)
+        else:
+            elem = TEXTAREA(_name=name, value=s, _cols=70,
+                            _rows=5, _class=_class)
+
+        # Making the short circuit compatible with <= python2.4
+        k = (s != k) and k or B(k)
+
+        new_row = DIV( LABEL(prefix, k, _style="font-weight:normal;"),
+                      CAT(elem, '\n', TAG.BUTTON(
+                    T('delete'),
+                    _onclick='return delkey("%s")' % name,
+                    _class='btn' )), _id=name, _class='span6 well well-small')
+
+        rows.append(DIV(new_row,_class="row-fluid"))
+    rows.append(DIV(INPUT(_type='submit', _value=T('update'), _class="btn btn-primary"), _class='controls'))
+    form = FORM(*rows)
+    if form.accepts(request.vars, keepvalues=True):
+        strs = dict()
+        for key in keys:
+            name = md5_hash(key)
+            if form.vars[name] == chr(127):
+                continue
+            strs[key] = form.vars[name]
+        write_dict(apath(filename, r=request), strs)
+        session.flash = T('saved on UTC') + request.utcnow.strftime(" %Y-%m-%d %H:%M")
+        redirect(URL(r=request, args=request.args))
+    return dict(app=args[0], filename=filename, form=form, lang=lang)

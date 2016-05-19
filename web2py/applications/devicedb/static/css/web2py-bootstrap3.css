@@ -1,3 +1,61 @@
+div.languageform button.btn,
+div.controls a.button.btn
+{
+    display: inline-block;
+    background-color: #4e4f4a;
+    color: white;
+    margin-left: 20px;
+    margin-top: 10px;
+    margin-bottom:10px;
+}
+
+div.languageform_save_changes_div
+{
+    box-shadow: 0px -1px 2px #000;
+}
+
+button.languageform_save_changes
+{
+    color: white;
+    background-color: #0275d8;
+}
+/*div.languageform div.translation_div
+{
+    float: right;
+}*/
+
+div.languageform input.untranslated,
+div.languageform input.translated,
+div.languageform textarea.untranslated,
+div.languageform textarea.translated
+{
+    display: inline-block;
+    width: 80%;
+}
+
+div.languageform .untranslated
+{
+    background-color: #ff4;
+}
+
+div.languageform label
+{
+    display: block;
+    width: 80%;
+}
+
+div.languageform div
+{
+    background-color: #ddd;
+}
+
+div.clock.utc_clock
+{
+    background-color: white;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus
 {
     background-color: #4e4f4a;
@@ -12,8 +70,14 @@
 div.service_summary li
 {
     font-weight: 500;
-    font-size: 12px;
+    font-size: 14px;
+    padding: 8px 16px;
     text-transform: uppercase;
+}
+
+div.service_summary h3.panel-title
+{
+    font-size: 14px;
 }
 
 div.service_summary li:hover
@@ -32,9 +96,14 @@ div.panel-info
     box-shadow: 1px 2px 2px #000;
 }
 
-div.panel_info_table
+div.panel_info_table table.table
 {
     min-width: 600px;
+}
+
+div.panel_info_table
+{
+    overflow-y: auto;
 }
 
 div.panel_info_table th

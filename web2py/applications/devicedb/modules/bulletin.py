@@ -9,7 +9,7 @@ BulletinContentType = ('device history summary','device status summary')
 def bulletin_schedule_process():
     # run through bulletin definiations
     # and evaluate if triggered on this run
-    now = datetime.now()
+    now = datetime.utcnow()
     logfile="bulletin.log"
     f = open(logfile,'a')
     f.write("Starting "+str(now)+"\n")
@@ -145,11 +145,11 @@ def create_bulletin_message( type, db, html=True):
                                   left = db.device_heartbeat.on( db.device.id==db.device_heartbeat.device ),
                                   groupby=db.device.id  )
             # create message string
-            bulletin = '#'+type.upper()+'\n##Generated at ' + datetime.now().strftime("%Y-%m-%d %H:%M") + "\n"
+            bulletin = '#'+type.upper()+'\n##Generated at ' + datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC") + "\n"
             bulletin += "### ''Medical devices with following status:''\n"
             bulletin += "------------\n"
             bulletin += "**device** | **serial no** | **type** | **site** | **status** \n"
-            now = datetime.now()
+            now = datetime.utcnow()
             for r in rows:
                 if r.device_heartbeat.at_time:
                     hbhours = (now - r.device_heartbeat.at_time).total_seconds()/3600.0

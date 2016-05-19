@@ -13,6 +13,8 @@ db.define_table('site',
                        label=T("Phone Number"),
                        requires=IS_MATCH('^[+]?[\d]*[\s\d]*$',
                                          error_message='can only use +, spaces and digits')),
+                Field('time_zone','integer', requires=IS_FLOAT_IN_RANGE(-12.0,12.0), default=0.0,
+                      represent=lambda t, r: ("-%.1f"%t if t<0 else "+%.1f"%t) if t else ""),
                 format='%(name)s')
 
 # medical device table

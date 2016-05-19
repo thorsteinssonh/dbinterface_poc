@@ -46,7 +46,7 @@ class MDBExporterPDF(ExportClass):
             pdf.textBox("CHC Master Database", prop='right',
                         justify='L', border=False)
             pdf.setFont('h3')
-            pdf.textBox("Date: "+datetime.now().strftime("%Y %m %d"),
+            pdf.textBox(datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC"),
                         justify='R', prop='return')
 
             # if request object attached, look for keyword search terms of the data

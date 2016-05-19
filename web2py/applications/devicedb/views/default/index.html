@@ -71,17 +71,17 @@
 {{if 'service_summary' in globals():}}
 <div class="panel panel-info service_summary">
   <div class="panel-heading"><h3 class="panel-title">
-      <b>{{=T("Service summary")}}</b>
+      <b>{{=T("Service summary")}}</b><div style="float:right;"><b>{{=T("total")}}</b></div>
      </h3></div>
   <ul class="list-group">
     <a href="{{=URL('site','look_up')}}">
     <li class="list-group-item">{{=T('sites serviced')}}<div style="float:right;"><b>{{=service_summary['total_sites']}}</b></div></li></a>
     <a href="{{=URL('device','look_up')}}">
-        <li class="list-group-item">{{=T('medical devices')}} <div style="float:right;"><b>{{=service_summary['total_devices']}}</b></div></li></a>
+        <li class="list-group-item">{{=T('medical devices')}}<div style="float:right;"><b>{{=service_summary['total_devices']}}</b></div></li></a>
     <a href="{{=URL('device_history','look_up')}}">
-        <li class="list-group-item">{{=T('treatments to date')}} <div style="float:right;"><b>{{=service_summary['total_treatments']}}</b></div></li></a>
+        <li class="list-group-item">{{=T('treatments to date')}}<div style="float:right;"><b>{{=service_summary['total_treatments']}}</b></div></li></a>
     <a href="{{=URL('device_history','look_up')}}">
-        <li class="list-group-item">{{=T('patients to date')}} <div style="float:right;"><b>{{=service_summary['total_patients']}}</b></div></li></a>
+        <li class="list-group-item">{{=T('patients to date')}}<div style="float:right;"><b>{{=service_summary['total_patients']}}</b></div></li></a>
   </ul>
 </div>
 {{pass}}

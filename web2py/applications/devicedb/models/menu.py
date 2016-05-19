@@ -46,7 +46,8 @@ lang_submen = [(T('English'), False, URL(vars=dict(lang='en')),[]),
                 (T('Mandarin'), False, URL(vars=dict(lang='zh-tw')),[])]
 
 mn_submen = [(T('SQL'), False, URL('manager', 'sql'), []),
-             (T('Bulletin'), False, URL('manager', 'bulletin_schedules'), [])]
+             (T('Bulletin'), False, URL('manager', 'bulletin_schedules'), []),
+             (T('Translation'), False, URL('manager', 'edit_language'), [])]
 
 response.menu = [
     (T('Home'), False, URL('default','index'), []),

@@ -22,8 +22,8 @@ class DeviceHistoryPDF(MDBExporterPDF):
 @auth.requires_membership('manager')
 @LanguageSession
 def register():
-    db.device_history.time_used.default = request.now
-    db.device_history.time_received.default = request.now
+    db.device_history.time_used.default = request.utcnow
+    db.device_history.time_received.default = request.utcnow
 #    db.device_history.....writable = False
 #    db.device_history.....readable = False
     form = SQLFORM(db.device_history).process()
@@ -34,6 +34,8 @@ def register():
 @auth.requires_membership('observer')
 @LanguageSession
 def look_up():
+    db.device_history.time_used.default = request.utcnow
+    db.device_history.time_received.default = request.utcnow
     db.device_history.id.readable = False
     isMgr = auth.has_membership('manager')
     request.vars._export_filename = "device_history_transcript"
@@ -48,6 +50,7 @@ def look_up():
 @auth.requires_membership('observer')
 @LanguageSession
 def heartbeat():
+    db.device_heartbeat.at_time.default = request.utcnow
     db.device_heartbeat.id.readable = False
     isMgr = auth.has_membership('manager')
     grid = SQLFORM.grid(db.device_heartbeat,
@@ -118,7 +121,7 @@ import xmlrpclib, datetime
 
 @service.xmlrpc
 def rpc_heartbeat(device_id, site_id):
-    db.device_heartbeat.insert(at_time=request.now,
+    db.device_heartbeat.insert(at_time=request.utcnow,
                                device = device_id,
                                site = site_id,
                                ip_address = request.client)
@@ -127,7 +130,7 @@ def rpc_heartbeat(device_id, site_id):
 def rpc_insert(data):
     unmarshal(data)
     # insert data
-    db.device_history.time_received.default = request.now
+    db.device_history.time_received.default = request.utcnow
     db.device_history.insert(**data)
     rpc_heartbeat(data['device'], data['site'])
 

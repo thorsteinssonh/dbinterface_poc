@@ -1,0 +1,25 @@
+{{extend 'layout.html'}}
+<script>
+function delkey(id) {
+  jQuery('#'+id).hide();
+  jQuery('#'+id+' INPUT').val(String.fromCharCode(127));
+  jQuery('#'+id+' TEXTAREA').val(String.fromCharCode(127));
+  return false;
+}
+function hideShowTranslated(){
+  jQuery(".translated").closest("div.row-fluid").toggle();
+}
+</script>
+
+<h2>{{=T('Editing language translation')}} "{{=lang[1]}}"</h2>
+<div class="controls">
+<a class="button btn" href="#" onclick="hideShowTranslated(this);">
+<span>{{=T('Hide/Show Translated strings')}}</span>
+</a>
+</div>
+<div class="languageform" style="margin-bottom: 60px;">
+  {{=form}}
+</div>
+<div class="languageform_save_changes_div" style="position:fixed; left: 0px; bottom:0px; width:100%; height:60px; background-color: #eee;">
+<button class="btn languageform_save_changes" style="display:block; margin: 10px auto;" onclick="jQuery('form input[type=submit]').click()">Save Changes</button>
+</div>

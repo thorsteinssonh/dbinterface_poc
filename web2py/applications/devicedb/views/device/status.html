@@ -23,7 +23,7 @@
                   =entry.device_heartbeat.site.name
               pass}}</td>
         <td>{{if entry.device_heartbeat.at_time:
-                hbhours = (request.now - entry.device_heartbeat.at_time).total_seconds()/3600.0
+                hbhours = (request.utcnow - entry.device_heartbeat.at_time).total_seconds()/3600.0
                 if hbhours < max_hours:
                     ="normal"
                 else:
