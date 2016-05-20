@@ -20,14 +20,18 @@ select * from device"""
     if form.process(keepvalues=True).accepted:
         try:
             sql_result = db.executesql(form.vars.sql_query, as_dict=True)
-        except (OperationalError,RuntimeError) as sql_error:
+        except (OperationalError,RuntimeError,TypeError) as sql_error:
             response.flash = "sql query failed"
+            # workaround for bug with as_dict=True mode
+            if "object is not iterable" in str(sql_error):
+                sql_error = "No entries found - ("+str(sql_error)+")"
             sql_result = None
         else:
             sql_error = None
     else:
         sql_result = None
         sql_error = None
+    print sql_result, sql_error
     return locals()
 
 @auth.requires_membership('manager')
