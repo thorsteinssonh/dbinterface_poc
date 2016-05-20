@@ -71,11 +71,10 @@ p22
 sg9
 I00
 sg10
-S'id'
-p23
+g20
 ssS'site'
-p24
-(dp25
+p23
+(dp24
 g4
 I512
 sg5
@@ -84,10 +83,10 @@ sg6
 I4
 sg7
 S'INTEGER REFERENCES site (id) ON DELETE CASCADE  '
-p26
+p25
 sg9
 I00
 sg10
 S'reference site'
-p27
+p26
 ss.

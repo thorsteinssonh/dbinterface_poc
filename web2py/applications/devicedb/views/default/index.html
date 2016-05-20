@@ -46,7 +46,7 @@
             <td>{{=T(h.device.device_type)}}</td>
             {{
             if h.time_used is not None:
-                dt = (request.now - h.time_used).total_seconds()/60.0
+                dt = (request.utcnow - h.time_used).total_seconds()/60.0
                 if dt < 60.0:
                     dtstr = "%.1f "%(dt) + T("minutes ago")
                 elif dt < 1440.0:
@@ -56,6 +56,9 @@
                     pass
             else:
                 dtstr=""
+                pass
+            if h.use_type is not None:
+                dtstr = h.use_type+" "+dtstr
                 pass
             }}
             <td>{{=dtstr}}</td>

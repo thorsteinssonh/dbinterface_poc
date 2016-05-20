@@ -42,6 +42,7 @@ db.define_table('device_heartbeat',
 db.define_table('device_history',
                  Field('device', 'reference device', label=T('Device'), required=True, requires=IS_IN_DB(db,'device.id','%(make)s/%(model)s (%(special_alias)s)')),
                  Field('site', 'reference site', label=T('Site'), required=True, requires=IS_IN_DB(db,'site.id','%(name)s')),
+                 Field('use_type', 'string', label=T('Use Type')),
                  Field('time_used', 'datetime', label=T('Used At')),
                  Field('time_received', 'datetime', label=T('Received At')),
                  Field('patient_id', 'integer', label=T('Patient Id')))

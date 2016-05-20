@@ -8,6 +8,8 @@ def index():
     # fetch 5 latest device events to decorate front page
     latest_history = db(db.device_history).select(orderby=~db.device_history.time_used,
                                                   limitby=(0,5))
+    if len(latest_history)==0:
+        del latest_history
     # hide location of devices and user id if member is not observer or logged in
     # Note: this is a bit quick and dirty
     #       access controll more secure with model fields properties

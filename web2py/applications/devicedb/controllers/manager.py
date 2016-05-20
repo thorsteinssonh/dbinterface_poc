@@ -31,7 +31,6 @@ select * from device"""
     else:
         sql_result = None
         sql_error = None
-    print sql_result, sql_error
     return locals()
 
 @auth.requires_membership('manager')
