@@ -13,16 +13,19 @@ class MedicalDevice(object):
     time_zone = None
     xmlrpc_server = None
     connection = None
-    working_hours = (time(8),time(17))
+    working_hours = None
 
     def __init__(self, hospital_id, device_id, use_types=None,
-                 xmlrpc_server="", time_zone=8.0, start_time=datetime.utcnow()):
+                 xmlrpc_server="", time_zone=8.0, start_time=datetime.utcnow(), 
+                 working_hours=(8,17)):
         self.hospital_id = hospital_id
         self.device_id = device_id
         self.use_types = use_types
         self.dtime = start_time
         self.time_zone = time_zone
         self.xmlrpc_server = xmlrpc_server
+        # process working hours int UTC (assumes integer time_zones)
+        self.working_hours = (  int(( working_hours[0]+24-time_zone )%24), int(( working_hours[1]+24-time_zone )%24) )
         # set up xmlrpc connection
         if self.xmlrpc_server is not None:
             self.connection = xmlrpclib.ServerProxy(self.xmlrpc_server)
@@ -57,23 +60,25 @@ class MedicalDevice(object):
     def nextTime(self):
         dt = self.pickTimeStep()
         self.dtime += dt
-        begOfDay = self.working_hours[0]
-        endOfDay = self.working_hours[1]
-        tzdelta = timedelta(hours=self.time_zone)
-        tztime = (self.dtime + tzdelta).time()
-        if tztime > endOfDay:
+        begOfDay = time( self.working_hours[0] )
+        endOfDay = time( self.working_hours[1] )
+        t = self.dtime.time()
+        if t > endOfDay:
             print "End of day: Going to beginning of next day."
             nextday = self.dtime + timedelta(hours=24)
             self.dtime = nextday.replace(hour=begOfDay.hour,
-                                         minute=begOfDay.minute + choice(range(0,5)) ) - tzdelta
-        elif tztime < begOfDay:
+                                         minute=begOfDay.minute + choice(range(0,5)) )
+        elif t < begOfDay:
             print "Going to begining of working day"
             self.dtime = self.dtime.replace(hour=begOfDay.hour,
-                                            minute=begOfDay.minute + choice(range(0,5)) ) - tzdelta
+                                            minute=begOfDay.minute + choice(range(0,5)) ) 
         return self.dtime
 
     def runStep(self):
         self.nextUsage()
+
+    def runRealTimeStep(self):
+        self.realTimeUsage()
 
     def nextUsage(self):
         patient = self.pickPatient()
@@ -92,10 +97,26 @@ class MedicalDevice(object):
         return data
 
     def pushData(self, data):
+        print "   pushing data"
         if self.connection is not None:
             self.connection.rpc_insert(data)
 
-    def loop(self):
-        """ run simulation in a realtime loop,
-        pushing event data as the time hits simulated nextTime."""
-        pass
+    def sendHeartBeat(self):
+        print "   heartbeat"
+        if self.connection is not None:
+            self.connection.rpc_heartbeat()
+        
+    def realTimeUsage(self):
+        """ run simulation in realtime,
+        pushing event data as the time hits simulated nextTime,
+        then generate next time use."""
+        utcnow = datetime.utcnow()
+        next = self.dtime
+        if utcnow > next:
+            # execute usage if time is passed
+            print "Executing device usage "+str(next)
+            self.nextUsage()
+            # Note: this conveniently also sets the next event time
+        else:
+            # send a heartbeat
+            self.sendHeartBeat()
