@@ -44,4 +44,15 @@
     {{=sql_error}}
     </h4>
 {{pass}}
+<script>
+(function worker() {
+  $.ajax({
+    url: "/ajax/query_history.xml",
+    success: function(data) {
+        alert(data);
+    }
+  });
+})();
+</script>
+
 {{#=response.toolbar()}}

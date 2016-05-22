@@ -27,6 +27,14 @@ select * from device"""
                 sql_error = "No entries found - ("+str(sql_error)+")"
             sql_result = None
         else:
+            # if query success, save in query_history
+            if form.vars.query_name != "":
+                if db(db.query_history.query_name == form.vars.query_name).count() > 0:
+                    # update query with same name
+                    db(db.query_history.query_name == form.vars.query_name).update(sql_query=form.vars.sql_query.lower(), time_updated=request.utcnow)
+                else:
+                    # insert new
+                    db.query_history.insert(query_name=form.vars.query_name, sql_query=form.vars.sql_query.lower(), time_updated=request.utcnow)
             sql_error = None
     else:
         sql_result = None

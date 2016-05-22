@@ -2,6 +2,11 @@
 # try something like
 from datetime import datetime
 
+@auth.requires_membership('manager')
+def query_history():
+    rows = db( db.query_history ).select( db.query_history.query_name, db.query_history.sql_query, orderby=db.query_history.time_updated )
+    return locals()
+
 def dh_page_reload():
     return page_reload("device_history")
 
@@ -24,6 +29,3 @@ def page_reload(table_name):
 def get_table_state(table_name):
     return db(db[table_name]).count()
 
-def test():
-    rows = db(db.device_history).select()
-    return locals()

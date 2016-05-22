@@ -4,7 +4,8 @@ from bulletin import BulletinContentType, IS_TRIGGER_EXPR
 # SQL request history
 db.define_table('query_history',
                 Field('query_name','string', required=False, notnull=True),
-                Field('sql_query','text', required=True, notnull=True))
+                Field('sql_query','text', required=True, notnull=True),
+                Field('time_updated','datetime', notnull=True))
 
 # Bulletin schedules
 
