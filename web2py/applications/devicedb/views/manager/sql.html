@@ -1,9 +1,10 @@
 {{extend 'layout.html'}}
 <h1>{{=T('SQL Query')}}</h1>
-<h3>Available tables:</h4>
+<h3>{{=T('Available tables:')}}</h4>
 {{for t in tables:}}
 <h4 style="display:inline;">{{=t.upper()}}&nbsp;&nbsp;,&nbsp;</h4>
 {{pass}}
+
 <hr/>
 {{=form}}
 <hr/>
@@ -45,14 +46,38 @@
     </h4>
 {{pass}}
 <script>
-(function worker() {
+// global dict to hold older queries
+var older_queries={};
+    
+$(function load_query_history() {
   $.ajax({
     url: "/ajax/query_history.xml",
-    success: function(data) {
-        alert(data);
+    dataType: "xml",
+    success: function( xml ) {
+        items = $( $(xml).find('rows').text() );
+        for( var i=0; i<items.length; i++)
+        {
+            // populate older queries dictionary
+            qname = $( items[i] ).find('query_name').text();
+            sql_query = $( items[i] ).find('sql_query').text();
+            older_queries[qname]=sql_query;
+        }
     }
   });
-})();
+});
+
+$(function set_dd_handler()
+ {
+    $("#no_table_saved_queries").change(function(){
+        var qname = $(this).val();
+        if(qname == "") return;
+        var qsql = older_queries[qname];
+        $("#no_table_query_name").val(qname);
+        $("#no_table_sql_query").val(qsql);
+    });
+ }
+);
+
 </script>
 
 {{#=response.toolbar()}}

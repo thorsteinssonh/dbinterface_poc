@@ -104,7 +104,7 @@ class MedicalDevice(object):
     def sendHeartBeat(self):
         print "   heartbeat"
         if self.connection is not None:
-            self.connection.rpc_heartbeat()
+            self.connection.rpc_heartbeat(self.device_id, self.hospital_id)
         
     def realTimeUsage(self):
         """ run simulation in realtime,

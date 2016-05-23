@@ -9,12 +9,18 @@ from datetime import datetime
 @auth.requires_membership('manager')
 @LanguageSession
 def sql():
+    # show choice of tables on page
     tables = db.tables()
-    form = SQLFORM.factory(Field('query_name','string', required=False, notnull=True),
+    # fetch query history names
+    qhist = db(db.query_history).select(db.query_history.query_name, orderby=~db.query_history.time_updated)
+    qhnames = [ x.query_name for x in qhist]
+    # build factory form (i.e. different than db table)
+    form = SQLFORM.factory(Field('saved_queries', 'string', requires=IS_EMPTY_OR( IS_IN_SET(qhnames)), label=T('Saved Queries')),
+                           Field('query_name','string', required=False, notnull=True, label=T('Name (to save)')),
                            Field('sql_query','text', required=True, notnull=True,
-                                 requires=IS_NOT_EMPTY(error_message="Please enter a query")),
+                                 requires=IS_NOT_EMPTY(error_message="Please enter a query"), label=T('SQL Query')),
                            submit_button=T('Run query'))
-    form.element('textarea[name=sql_query]')['_style'] = 'height:120px;'
+    form.element('textarea[name=sql_query]')['_style'] = 'height:200px;'
     form.vars.sql_query = """-- Enter SQL here, e.g.
 select * from device"""
     if form.process(keepvalues=True).accepted:
