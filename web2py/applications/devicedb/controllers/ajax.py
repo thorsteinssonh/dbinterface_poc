@@ -4,6 +4,7 @@ from datetime import datetime
 
 @auth.requires_membership('manager')
 def query_history():
+    response.generic_patterns = ['.xml']
     rows = db( db.query_history ).select( db.query_history.query_name, db.query_history.sql_query, orderby=db.query_history.time_updated )
     return locals()
 
@@ -28,4 +29,3 @@ def page_reload(table_name):
 
 def get_table_state(table_name):
     return db(db[table_name]).count()
-
