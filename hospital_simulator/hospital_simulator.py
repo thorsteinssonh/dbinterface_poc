@@ -99,12 +99,18 @@ class MedicalDevice(object):
     def pushData(self, data):
         print "   pushing data"
         if self.connection is not None:
-            self.connection.rpc_insert(data)
+            try:
+                self.connection.rpc_insert(data)
+            except:
+                print "Failed to send data"
 
     def sendHeartBeat(self):
         print "   heartbeat"
         if self.connection is not None:
-            self.connection.rpc_heartbeat(self.device_id, self.hospital_id)
+            try:
+                self.connection.rpc_heartbeat(self.device_id, self.hospital_id)
+            except:
+                print "Failed to send heart beat"
         
     def realTimeUsage(self):
         """ run simulation in realtime,
