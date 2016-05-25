@@ -1,15 +1,24 @@
 # -*- coding: utf-8 -*-
 
 from language_session import LanguageSession
+from gluon.tools import geocode
 
 # Pages
 @auth.requires_membership('manager')
 @LanguageSession
 def register():
-    form = SQLFORM(db.site).process()
+    db.site.latitude.writable = False
+    db.site.latitude.readable = False
+    db.site.longitude.writable = False
+    db.site.longitude.readable = False
+    form = SQLFORM(db.site).process(onvalidation=process_geolocation)
     if form.accepted:
         response.flash = "success"
     return locals()
+
+def process_geolocation(form):
+    if form.vars.latitude is None and form.vars.address is not None:
+        form.vars.latitude, form.vars.longitude = geocode(form.vars.address)
 
 @auth.requires_membership('observer')
 @LanguageSession
@@ -38,4 +47,6 @@ def status():
             s.device_list.append(hb.device)
         else:
             s.device_list = [hb.device]
+    # include map data
+    mapdata = sites
     return locals()

@@ -1,0 +1,66 @@
+{{if 'mapdata' in globals():}}
+<div class="panel panel-info map_panel">
+    <div class="panel-heading">
+        <h3 class="panel-title map_title" style="text-align:center;">
+          <b>{{=T("Sites")}}</b><span id="map_expand_marker" style="float: right;">+</span>
+        </h3>
+    </div>
+    <div id="mapid" style="height: 230px;">
+
+    </div>
+</div>
+
+<script>
+     function create_use_marker(text,coords,map)
+     {
+         var circle = L.circle(coords,
+                               500, { color: 'red',
+                                      fillColor: '#f03',
+                                      fillOpacity: 0.5
+                                     }).addTo(map);
+              circle.bindPopup(text);
+         return circle;
+     }
+    
+    var taipei = [25.04776,  121.53185];
+    var themap = L.map('mapid').setView(taipei, 10);
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(themap);
+    var marker_list = [];
+    {{for d in mapdata:
+          if d.latitude is not None:}}
+              {{coords="[%f,%f]"%(d.latitude,d.longitude)}}
+              var marker = L.marker({{=coords}}).addTo(themap);
+              marker_list.push(marker);
+              marker.bindPopup("{{=d.name}}");
+              /* if last use included plot it */
+              {{if hasattr(d, 'latest_event'):}}
+                  /*create_use_marker("{{=XML(d.latest_event)}}",{{=coords}},themap);*/
+                  marker.bindPopup("{{=XML(d.name+'<br/>'+d.latest_event)}}");
+              {{pass}}
+    {{    pass
+      pass}}
+     
+    /* Set map bounds to include all markers */
+    var marker_fg = new L.featureGroup(marker_list);
+    themap.fitBounds( marker_fg.getBounds() );
+     
+    /* make map expandable */
+    $('h3.map_title').css('cursor','pointer');
+    $('h3.map_title').click(function() {
+        var mapdiv = $("#mapid");
+        var expand_marker = $("#map_expand_marker");
+        if(mapdiv.css('height') > '230px')
+        {
+            mapdiv.animate({height:'230px'});
+            expand_marker.text("+");
+            setTimeout(function(){ themap.invalidateSize()}, 500);
+        }
+        else
+        {
+            mapdiv.animate({height:'460px'});
+            expand_marker.text("-");
+            setTimeout(function(){ themap.invalidateSize()}, 500);
+        }
+    });
+</script>
+{{pass}}

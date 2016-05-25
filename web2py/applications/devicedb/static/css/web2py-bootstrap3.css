@@ -1,3 +1,8 @@
+div.leaflet-control-attribution
+{
+    display: none;
+}
+
 div.languageform button.btn,
 div.controls a.button.btn
 {
@@ -75,7 +80,8 @@ div.service_summary li
     text-transform: uppercase;
 }
 
-div.service_summary h3.panel-title
+div.service_summary h3.panel-title,
+div.map_panel h3.panel-title
 {
     font-size: 14px;
 }

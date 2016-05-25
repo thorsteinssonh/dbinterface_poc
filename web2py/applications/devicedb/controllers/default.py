@@ -15,9 +15,9 @@ def index():
     #       access controll more secure with model fields properties
     if not auth.has_membership('observer'):
         for x in latest_history:
-            x.patient_id = T("hidden")
-            x.site.name = T("hidden")
-            x.site.country = T("hidden")
+            x.patient_id = T("restricted")
+            x.site.name = T("restricted")
+            x.site.country = T("restricted")
     
     # introduction
     title = T('CHC Healthcare Group')
@@ -31,7 +31,30 @@ def index():
     service_summary['total_patients'] = len(db(db.device_history.time_used < request.now).select(db.device_history.site, db.device_history.patient_id, distinct=True))
     # set page reload trigger (for ajax included in view)
     page_reload = "/ajax/dh_page_reload"
+    # include map data
+    mapdata = db(db.site).select()
+    if auth.has_membership('observer'):
+        for h in latest_history:
+            s = mapdata.find(lambda row: row.id == h.site).first()
+            if s is not None:
+                if not hasattr(s,'latest_event'):
+                    s.latest_event = event_str(h)
     return locals()
+
+def event_str(h):
+    dtstr = ""
+    dtstr += "{0}/{1} ".format(h.device.make, h.device.model)
+    if h.use_type is not None:
+        dtstr += h.use_type+" "
+    if h.time_used is not None:
+        dt = (request.utcnow - h.time_used).total_seconds()/60.0
+        if dt < 60.0:
+            dtstr += "%.1f "%(dt) + T("minutes ago")
+        elif dt < 1440.0:
+            dtstr += "%.1f "%(dt/60.0) + T("hours ago")
+        else:
+            dtstr += "%.1f "%(dt/1440.0) + T("days ago")
+    return dtstr
 
 @LanguageSession
 def user():
