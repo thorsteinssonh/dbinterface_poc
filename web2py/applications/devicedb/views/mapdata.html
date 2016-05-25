@@ -24,7 +24,7 @@
     
     var taipei = [25.04776,  121.53185];
     var themap = L.map('mapid').setView(taipei, 10);
-    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(themap);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(themap);
     var marker_list = [];
     {{for d in mapdata:
           if d.latitude is not None:}}

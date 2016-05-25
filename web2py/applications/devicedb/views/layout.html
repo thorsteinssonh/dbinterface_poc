@@ -45,8 +45,8 @@
     }}
     {{if 'mapdata' in globals():}}
       <!-- Leaflet map engine included -->
-      <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
-      <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+      <link rel="stylesheet" href="{{=URL('static','leaflet.css')}}" />
+      <script src="{{=URL('static','leaflet.js')}}"></script>
     {{pass}}
   </head>
   <body>
