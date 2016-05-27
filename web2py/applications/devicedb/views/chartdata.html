@@ -36,7 +36,11 @@ var valuedata = [
     ];
 
 var t_ticks = {{=str(chartdata['ticks'])}};
-
+var t_labels = [
+    {{for l in chartdata['labels']:
+    =XML("'%s', "%l)
+    pass}}
+];
 var metadata = [
     {{for d in chartdata['data']:}}
     "{{=XML(d['meta'])}}",
@@ -57,30 +61,17 @@ var data = {
   }]
 };
 
-var weekdays =[
-    "{{=T('Sun')}}",
-    "{{=T('Mon')}}",
-    "{{=T('Tue')}}",
-    "{{=T('Wed')}}",
-    "{{=T('Thu')}}",
-    "{{=T('Fri')}}",
-    "{{=T('Sat')}}"
-]
 var prevTickDate = new Date();
 var options = {
   axisX: {
     type: Chartist.FixedScaleAxis,
     divisor: 2,
     ticks: t_ticks,
+    labels: t_labels,
     high:{{=chartdata['tmax']}},
     low:{{=chartdata['tmin']}},
-    labelInterpolationFnc: function(value) {
-      var d = new Date( value );
-      var s = "";
-      s += d.getHours()+':'+("0"+d.getMinutes()).slice(-2)+"Z";
-      if( d.getDay() != prevTickDate.getDay() )s = weekdays[d.getDay()];
-      prevTickDate = d;
-      return s;
+    labelInterpolationFnc: function(value, index) {
+      return t_labels[index];
     }
   },
   axisY: {

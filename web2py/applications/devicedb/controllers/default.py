@@ -63,17 +63,30 @@ def index():
              'type':"%s %s %s"%(h.device.serial_no, h.device.make,h.device.model),
              'meta':meta})
     ticks = []
+    labels = []
     t = starttime.replace(minute=0, second=0)
     tickstep = timedelta(hours=4)
+    prev_weekday=None
     while t<stoptime:
         ticks.append( int(time.mktime(t.timetuple())*1000.0) )
+        if prev_weekday == t.weekday():
+            labels.append( t.strftime('%H:%MZ') )
+        else:
+            labels.append( weekday_abrev[ t.weekday() ] )
+            prev_weekday = t.weekday()
         t += tickstep
     chartdata = {'data':cd_data,
                  'tmax':int(time.mktime(stoptime.timetuple())*1000.0),
                  'tmin':int(time.mktime(starttime.timetuple())*1000.0),
                  'ticks':ticks,
+                 'labels':labels,
                  'title':T("Event Timeline")}
     return locals()
+
+# weekday abreviation helper list
+# safer than using datetime.strftime / possible locale issue)
+weekday_abrev = [T('Mon'),T('Tue'),T('Wed'),T('Thu'),
+                T('Fri'),T('Sat'),T('Sun')]
 
 def event_str(h):
     dtstr = ""
