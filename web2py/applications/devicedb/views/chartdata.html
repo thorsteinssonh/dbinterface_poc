@@ -1,0 +1,135 @@
+{{if 'chartdata'in globals():}}
+<div class="panel panel-info chart_panel">
+    <div class="panel-heading">
+        <h3 class="panel-title chart_title" style="text-align:center;">
+          <b>{{=chartdata['title']}}</b>
+        </h3>
+    </div>
+    <div class="panel_info_chart">
+    <div id="chartid" style="height:230px; padding: 10px;"></div>
+    </div>
+    <span id="tooltip">H</span>
+</div>
+
+<script>
+{{
+type2val={}
+valcount=1.0
+for d in chartdata['data']:
+    if d['type'] not in type2val:
+        type2val[d['type']]=valcount
+        valcount += 1
+    pass
+pass
+}}
+
+var timedata = [
+    {{for d in chartdata['data']:
+    = str(d['time'])+','
+    pass}}
+    ];
+
+var valuedata = [
+    {{for d in chartdata['data']:
+    = str(type2val[d['type']])+','
+    pass}}
+    ];
+
+var t_ticks = {{=str(chartdata['ticks'])}};
+
+var metadata = [
+    {{for d in chartdata['data']:}}
+    "{{=XML(d['meta'])}}",
+    {{pass}}
+    ];
+
+
+var pointdata = [];
+for( var i = 0; i<timedata.length-1; i++ )
+{
+    pointdata.push( {x:timedata[i], y:valuedata[i], meta:metadata[i]} );
+}
+
+var data = {
+  series: [{
+    name: 'use_events',
+    data: pointdata
+  }]
+};
+
+var weekdays =[
+    "{{=T('Sun')}}",
+    "{{=T('Mon')}}",
+    "{{=T('Tue')}}",
+    "{{=T('Wed')}}",
+    "{{=T('Thu')}}",
+    "{{=T('Fri')}}",
+    "{{=T('Sat')}}"
+]
+var prevTickDate = new Date();
+var options = {
+  axisX: {
+    type: Chartist.FixedScaleAxis,
+    divisor: 2,
+    ticks: t_ticks,
+    high:{{=chartdata['tmax']}},
+    low:{{=chartdata['tmin']}},
+    labelInterpolationFnc: function(value) {
+      var d = new Date( value );
+      var s = "";
+      s += d.getHours()+':'+("0"+d.getMinutes()).slice(-2)+"Z";
+      if( d.getDay() != prevTickDate.getDay() )s = weekdays[d.getDay()];
+      prevTickDate = d;
+      return s;
+    }
+  },
+  axisY: {
+    type: Chartist.FixedScaleAxis,
+    low: 0.5,
+    high: {{=max(type2val.values())+0.5}},
+    showLabel: false,
+    showGrid: false,
+    offset: 0
+  },
+  series: {
+    use_events: {
+      showLine: false,
+      lineSmooth: false
+    }
+  }
+};
+
+var chart = new Chartist.Line('#chartid', data, options);
+
+chart.on('created',
+function() {
+    var tt = $('#tooltip');
+    $('.hastooltip').on('mouseover', function(e) {
+        var x = e.clientX;
+        var y = e.clientY;
+        tt.css('top', (y - 30) + 'px');
+        tt.css('left', (x + 20) + 'px');
+        tt.css('display', 'block');
+        tt.html( $(this).attr('meta').split(",").join("<br/>") );
+        });
+    
+        $('.hastooltip').on('mouseout', function(e) {
+        tt.css('display', 'none');
+        });
+});
+
+chart.on('draw', function(data) {
+    if( data.type === 'point' )
+    {
+        var circle = new Chartist.Svg('circle', {
+          cx: [data.x],
+          cy: [data.y],
+          r: [5],
+          'meta': data.meta,
+          class: 'hastooltip'
+        }, 'ct-area');
+        data.element.replace(circle);
+    }
+});
+</script>
+{{pass}}

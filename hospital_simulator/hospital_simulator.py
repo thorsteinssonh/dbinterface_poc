@@ -62,16 +62,23 @@ class MedicalDevice(object):
         self.dtime += dt
         begOfDay = time( self.working_hours[0] )
         endOfDay = time( self.working_hours[1] )
+	cross_midnight = begOfDay > endOfDay
         t = self.dtime.time()
-        if t > endOfDay:
-            print "End of day: Going to beginning of next day."
-            nextday = self.dtime + timedelta(hours=24)
-            self.dtime = nextday.replace(hour=begOfDay.hour,
-                                         minute=begOfDay.minute + choice(range(0,5)) )
-        elif t < begOfDay:
-            print "Going to begining of working day"
-            self.dtime = self.dtime.replace(hour=begOfDay.hour,
-                                            minute=begOfDay.minute + choice(range(0,5)) ) 
+        if cross_midnight:
+            if t < begOfDay and t > endOfDay:
+                print "End of shift: Going to begining of shift."
+                self.dtime = self.dtime.replace(hour=begOfDay.hour,
+                                                minute=begOfDay.minute + choice(range(0,5)) )
+        else:
+            if t > endOfDay:
+                print "End of shift: Going to beginning of next day."
+                nextday = self.dtime + timedelta(hours=24)
+                self.dtime = nextday.replace(hour=begOfDay.hour,
+                                             minute=begOfDay.minute + choice(range(0,5)) )
+            elif t < begOfDay:
+                print "Going to begining of shift day"
+                self.dtime = self.dtime.replace(hour=begOfDay.hour,
+                                                minute=begOfDay.minute + choice(range(0,5)) )
         return self.dtime
 
     def runStep(self):

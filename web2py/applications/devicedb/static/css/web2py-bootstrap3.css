@@ -1,3 +1,49 @@
+/* chartist overrides */
+.ct-label
+{
+    fill: black;
+    color: black;
+    font-size: 80%;/*1rem;*/
+}
+
+.ct-area
+{
+    fill: #29abe0 !important;
+    stroke: orange;
+    stroke-width: 0px;
+    box-shadow: 10px 10px 5px #888888;
+    -webkit-filter: drop-shadow( 1px 2px 1px #000 );
+    filter: drop-shadow( 1px 2px 1px #000 );
+}
+
+.hastooltip{
+  fill-opacity: 1!important;
+  transition: all 0.2s linear;
+}
+
+.hastooltip:hover{
+  r: 7;
+  stroke-opacity: 0.35;
+  stroke-width: 20px;
+}
+
+.chart_panel span#tooltip
+{
+    position:fixed;
+    display:none;
+    background-color: rgba(255,255,255,0.8);
+}
+
+/**********************/
+
+/* consider limit page width */
+/*html,
+.container-fluid
+{
+    margin:    0 auto;
+    max-width: 1200px;
+}*/
+
 div.leaflet-control-attribution
 {
     display: none;
@@ -80,8 +126,7 @@ div.service_summary li
     text-transform: uppercase;
 }
 
-div.service_summary h3.panel-title,
-div.map_panel h3.panel-title
+div.panel-info h3.panel-title
 {
     font-size: 14px;
 }
@@ -102,12 +147,14 @@ div.panel-info
     box-shadow: 1px 2px 2px #000;
 }
 
-div.panel_info_table table.table
+div.panel_info_table table.table,
+div.panel_info_chart div#chartid
 {
     min-width: 600px;
 }
 
-div.panel_info_table
+div.panel_info_table,
+div.panel_info_chart
 {
     overflow-y: auto;
 }

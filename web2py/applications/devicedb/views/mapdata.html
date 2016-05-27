@@ -49,7 +49,7 @@
     $('h3.map_title').click(function() {
         var mapdiv = $("#mapid");
         var expand_marker = $("#map_expand_marker");
-        if(mapdiv.css('height') > '230px')
+        if(mapdiv.css('height') != '230px')
         {
             mapdiv.animate({height:'230px'});
             expand_marker.text("+");
@@ -57,7 +57,9 @@
         }
         else
         {
-            mapdiv.animate({height:'460px'});
+            expand_height = Math.ceil(3*mapdiv.width()/4)
+            if(expand_height < 230){ expand_height = 231; }
+            mapdiv.animate({height: expand_height.toString()+'px'});
             expand_marker.text("-");
             setTimeout(function(){ themap.invalidateSize()}, 500);
         }

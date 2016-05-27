@@ -2,6 +2,7 @@
 
 from language_session import LanguageSession
 from datetime import datetime, timedelta
+import time
 
 @LanguageSession
 def index():
@@ -39,6 +40,39 @@ def index():
             if s is not None:
                 if not hasattr(s,'latest_event'):
                     s.latest_event = event_str(h)
+    # include chart data
+    observer = auth.has_membership('observer')
+    starttime = (request.utcnow - timedelta(hours=48)).replace(minute=0,second=0)
+    stoptime = request.utcnow.replace(minute=0,second=0)+timedelta(hours=1)
+    h4chart = db(db.device_history.time_used > starttime).select( orderby=~db.device_history.time_used)
+    cd_data =[]
+    for h in h4chart:
+        # collect point meta info
+        meta = ""
+        if observer:
+            meta += "%s,"%(h.site.name)
+        meta += "%s %s,"%(h.device.make,h.device.model)
+        if h.use_type:
+            meta += "%s at "%h.use_type
+        else:
+            meta += "used at "
+        meta += h.time_used.strftime("%d/%m %H:%MZ")
+        # insert point data
+        cd_data.append( 
+            {'time':int(time.mktime(h.time_used.timetuple())*1000.0),
+             'type':"%s %s %s"%(h.device.serial_no, h.device.make,h.device.model),
+             'meta':meta})
+    ticks = []
+    t = starttime.replace(minute=0, second=0)
+    tickstep = timedelta(hours=4)
+    while t<stoptime:
+        ticks.append( int(time.mktime(t.timetuple())*1000.0) )
+        t += tickstep
+    chartdata = {'data':cd_data,
+                 'tmax':int(time.mktime(stoptime.timetuple())*1000.0),
+                 'tmin':int(time.mktime(starttime.timetuple())*1000.0),
+                 'ticks':ticks,
+                 'title':T("Event Timeline")}
     return locals()
 
 def event_str(h):
